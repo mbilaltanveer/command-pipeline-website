@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+@theme {
+  --color-amber-gold: #E8A000;
+  --color-golden-yellow: #FBBF24;
+  --color-coral: #FF8559;
+  --color-dark-slate: #1E293B;
+  --color-medium-slate: #475569;
+  --color-muted-slate: #94A3B8;
+  --color-cloud: #F1F5F9;
+  --color-mist: #E2E8F0;
+  --color-shark: #1C1C24;
+
+  --font-montserrat: 'Montserrat', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-space: 'Space Grotesk', sans-serif;
+}
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+    color: #1E293B;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* --- Keyframe animations --- */
+
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+@keyframes feedSlide {
+  from { opacity: 0; transform: translateX(14px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* --- Scroll-triggered fade-up --- */
+
+.observe-fade {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+  transition-delay: var(--delay, 0s);
+}
+
+.observe-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Card hover: light bg --- */
+
+.card-hover {
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 44px rgba(232,160,0,0.13);
+}
+
+/* --- Pipeline carousel --- */
+
+@keyframes carouselScroll {
+  from { transform: translateX(0) }
+  to { transform: translateX(-33.333%) }
+}
+
+@keyframes waveFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+.carousel-item:hover {
+  animation-play-state: paused !important;
+}
+
+.carousel-track:has(.carousel-item:hover) {
+  animation-play-state: paused !important;
+}
+
+.carousel-track {
+  display: flex;
+  align-items: center;
+  animation: carouselScroll 28s linear infinite;
+  width: max-content;
+  will-change: transform;
+}
+
+
+/* --- Card hover: dark bg --- */
+
+.card-hover-dark {
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.card-hover-dark:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 44px rgba(232,160,0,0.18);
+  border-top-color: rgba(232,160,0,0.6) !important;
+}
