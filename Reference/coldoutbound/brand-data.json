@@ -1,0 +1,413 @@
+{
+  "cssVars": {},
+  "brandData": {
+    "bodyFont": "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+    "bodyColor": "rgb(0, 0, 0)",
+    "bodyBg": "rgba(0, 0, 0, 0)",
+    "h1": {
+      "text": "We Send 8 Million+\nEmails Per Month.\nWe Know What Converts.",
+      "font": "__Instrument_Sans_3d9088, __Instrument_Sans_Fallback_3d9088, sans-serif",
+      "size": "72px",
+      "weight": "700",
+      "color": "rgb(255, 255, 255)",
+      "lineHeight": "72px"
+    },
+    "h2Samples": [
+      {
+        "text": "Instantly.ai",
+        "font": "__Instrument_Sans_3d9088, __Instrument_Sans_Fallback_3d9088, sans-serif",
+        "size": "18px",
+        "weight": "600",
+        "color": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "Clay",
+        "font": "__Instrument_Sans_3d9088, __Instrument_Sans_Fallback_3d9088, sans-serif",
+        "size": "18px",
+        "weight": "600",
+        "color": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "Notion",
+        "font": "__Instrument_Sans_3d9088, __Instrument_Sans_Fallback_3d9088, sans-serif",
+        "size": "18px",
+        "weight": "600",
+        "color": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "Pay On Results PR",
+        "font": "__Instrument_Sans_3d9088, __Instrument_Sans_Fallback_3d9088, sans-serif",
+        "size": "18px",
+        "weight": "600",
+        "color": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "See Results Before You Commit",
+        "font": "__Instrument_Sans_3d9088, __Instrument_Sans_Fallback_3d9088, sans-serif",
+        "size": "48px",
+        "weight": "700",
+        "color": "rgb(255, 255, 255)"
+      }
+    ],
+    "nav": {
+      "bg": "rgba(0, 0, 0, 0.6)",
+      "text": "GROWTH ENGINE X\nMethodology\nGrowth Drops\n✦\nApply → for Free Test"
+    },
+    "buttons": [
+      {
+        "text": "Apply → for Free Test",
+        "bg": "rgb(185, 28, 28)",
+        "color": "rgb(255, 255, 255)",
+        "borderRadius": "8px",
+        "font": "Inter, system-ui, sans-serif",
+        "size": "14px",
+        "padding": "10px 20px"
+      },
+      {
+        "text": "Apply for Free Test Campaign →",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderRadius": "12px",
+        "font": "__Instrument_Sans_3d9088, __Instrument_Sans_Fallback_3d9088, sans-serif",
+        "size": "18px",
+        "padding": "16px 32px"
+      },
+      {
+        "text": "Looking to scale what's working? Let's talk",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderRadius": "12px",
+        "font": "__Inter_f367f3, __Inter_Fallback_f367f3, sans-serif",
+        "size": "16px",
+        "padding": "16px 32px"
+      },
+      {
+        "text": "Instantly.ai\n\nPartner for 3+ years\n\nView Case Study →",
+        "bg": "rgba(255, 255, 255, 0.02)",
+        "color": "rgb(255, 255, 255)",
+        "borderRadius": "12px",
+        "font": "Inter, system-ui, sans-serif",
+        "size": "16px",
+        "padding": "16px"
+      },
+      {
+        "text": "Clay\n\n4:1 ROI\n\nView Case Study →",
+        "bg": "rgba(255, 255, 255, 0.02)",
+        "color": "rgb(255, 255, 255)",
+        "borderRadius": "12px",
+        "font": "Inter, system-ui, sans-serif",
+        "size": "16px",
+        "padding": "16px"
+      },
+      {
+        "text": "Notion\n\nSee what Notion has to say about us\n\nView Case Study →",
+        "bg": "rgba(255, 255, 255, 0.02)",
+        "color": "rgb(255, 255, 255)",
+        "borderRadius": "12px",
+        "font": "Inter, system-ui, sans-serif",
+        "size": "16px",
+        "padding": "16px"
+      },
+      {
+        "text": "Pay On Results PR\n\n80 positive responses per day\n\nView Case Study →",
+        "bg": "rgba(255, 255, 255, 0.02)",
+        "color": "rgb(255, 255, 255)",
+        "borderRadius": "12px",
+        "font": "Inter, system-ui, sans-serif",
+        "size": "16px",
+        "padding": "16px"
+      },
+      {
+        "text": "Apply for Free Test Campaign →",
+        "bg": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "borderRadius": "12px",
+        "font": "__Instrument_Sans_3d9088, __Instrument_Sans_Fallback_3d9088, sans-serif",
+        "size": "18px",
+        "padding": "16px 32px"
+      }
+    ],
+    "colors": [
+      "rgb(0, 0, 0)",
+      "rgb(255, 255, 255)",
+      "rgba(0, 0, 0, 0.6)",
+      "rgb(163, 163, 163)",
+      "rgb(239, 68, 68)",
+      "rgb(185, 28, 28)",
+      "rgba(127, 29, 29, 0.05)",
+      "rgba(255, 255, 255, 0.02)",
+      "rgb(38, 38, 38)",
+      "rgb(82, 82, 82)",
+      "rgba(255, 255, 255, 0.05)",
+      "rgba(255, 255, 255, 0.6)",
+      "rgb(212, 212, 212)",
+      "rgb(0, 229, 160)"
+    ],
+    "fonts": [
+      "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "Inter, system-ui, sans-serif",
+      "__Instrument_Sans_3d9088, __Instrument_Sans_Fallback_3d9088, sans-serif",
+      "__Inter_f367f3, __Inter_Fallback_f367f3, sans-serif"
+    ],
+    "navLinks": [
+      {
+        "text": "Methodology",
+        "href": "https://www.coldoutbound.com/#methodology"
+      },
+      {
+        "text": "Growth Drops\n✦",
+        "href": "https://www.coldoutbound.com/growth-drops"
+      },
+      {
+        "text": "Apply → for Free Test",
+        "href": "https://tally.so/r/meK550"
+      }
+    ],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "We Send 8 Million+\nEmails Per Month.\nWe Know What Converts."
+      },
+      {
+        "tag": "H2",
+        "text": "Instantly.ai"
+      },
+      {
+        "tag": "H2",
+        "text": "Clay"
+      },
+      {
+        "tag": "H2",
+        "text": "Notion"
+      },
+      {
+        "tag": "H2",
+        "text": "Pay On Results PR"
+      },
+      {
+        "tag": "H2",
+        "text": "See Results Before You Commit"
+      },
+      {
+        "tag": "H3",
+        "text": "Apply"
+      },
+      {
+        "tag": "H3",
+        "text": "We Launch"
+      },
+      {
+        "tag": "H3",
+        "text": "See Results"
+      },
+      {
+        "tag": "H2",
+        "text": "Quotes from Our Clients"
+      },
+      {
+        "tag": "H3",
+        "text": "Kyle Mallien"
+      },
+      {
+        "tag": "H3",
+        "text": "Varun Anand"
+      },
+      {
+        "tag": "H3",
+        "text": "Leon"
+      },
+      {
+        "tag": "H3",
+        "text": "John Thomas"
+      },
+      {
+        "tag": "H2",
+        "text": "The Results Speak for Themselves"
+      },
+      {
+        "tag": "H3",
+        "text": "Numeral"
+      },
+      {
+        "tag": "H3",
+        "text": "Baton Market"
+      },
+      {
+        "tag": "H3",
+        "text": "Heritage Wealth Capital"
+      },
+      {
+        "tag": "H3",
+        "text": "Online Seller Consulting"
+      },
+      {
+        "tag": "H3",
+        "text": "USA Payments"
+      },
+      {
+        "tag": "H3",
+        "text": "Oren Klaff"
+      },
+      {
+        "tag": "H3",
+        "text": "Sharf Enterprises"
+      },
+      {
+        "tag": "H3",
+        "text": "Snitcher"
+      },
+      {
+        "tag": "H3",
+        "text": "Donut"
+      },
+      {
+        "tag": "H3",
+        "text": "Arketa"
+      },
+      {
+        "tag": "H3",
+        "text": "Troveo"
+      },
+      {
+        "tag": "H3",
+        "text": "Media Max"
+      },
+      {
+        "tag": "H3",
+        "text": "Bissell Vacuums"
+      },
+      {
+        "tag": "H3",
+        "text": "Young Innovations"
+      },
+      {
+        "tag": "H3",
+        "text": "Gutter Kings"
+      },
+      {
+        "tag": "H2",
+        "text": "How We Work Together"
+      },
+      {
+        "tag": "H3",
+        "text": "Launch & Evaluate"
+      },
+      {
+        "tag": "H3",
+        "text": "Onboarding"
+      },
+      {
+        "tag": "H3",
+        "text": "First Campaigns"
+      },
+      {
+        "tag": "H3",
+        "text": "Scale Winners"
+      },
+      {
+        "tag": "H3",
+        "text": "Optimize"
+      },
+      {
+        "tag": "H2",
+        "text": "We Work Best With..."
+      },
+      {
+        "tag": "H3",
+        "text": "Best Fit"
+      },
+      {
+        "tag": "H3",
+        "text": "Usually Not the Best Fit"
+      },
+      {
+        "tag": "H2",
+        "text": "What's Included"
+      },
+      {
+        "tag": "H2",
+        "text": "Our Methodology"
+      },
+      {
+        "tag": "H3",
+        "text": "Email Infrastructure"
+      },
+      {
+        "tag": "H3",
+        "text": "List Building"
+      },
+      {
+        "tag": "H4",
+        "text": "Your Customers"
+      },
+      {
+        "tag": "H4",
+        "text": "Enrich"
+      },
+      {
+        "tag": "H4",
+        "text": "Analyze"
+      },
+      {
+        "tag": "H4",
+        "text": "AI Review"
+      },
+      {
+        "tag": "H4",
+        "text": "Validate"
+      },
+      {
+        "tag": "H3",
+        "text": "Campaign Strategy"
+      },
+      {
+        "tag": "H4",
+        "text": "Broad Campaigns"
+      },
+      {
+        "tag": "H4",
+        "text": "Focused Campaigns"
+      },
+      {
+        "tag": "H4",
+        "text": "Niche Campaigns"
+      },
+      {
+        "tag": "H2",
+        "text": "Check Out Our On Stage Presentation @ Sculpt As Clay's Largest User"
+      },
+      {
+        "tag": "H2",
+        "text": "Check Out Our Outbound Interview w/ Alex Hormozi"
+      },
+      {
+        "tag": "H2",
+        "text": "What Our Partners Say"
+      },
+      {
+        "tag": "H2",
+        "text": "And if you're not one for polished case studies, here's some raw screenshots of success"
+      },
+      {
+        "tag": "H2",
+        "text": "Ready to See What's Possible?"
+      },
+      {
+        "tag": "H3",
+        "text": "COMPANY"
+      },
+      {
+        "tag": "H3",
+        "text": "RESOURCES"
+      },
+      {
+        "tag": "H3",
+        "text": "CONNECT"
+      }
+    ],
+    "title": "Growth Engine X - B2B Lead Generation",
+    "metaDesc": "We send 8 million+ emails per month. B2B lead generation for companies with $1M+ in revenue.",
+    "ogTitle": "",
+    "ogDesc": ""
+  }
+}
