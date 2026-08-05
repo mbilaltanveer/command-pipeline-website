@@ -23,7 +23,7 @@ const STEPS = [
   {
     num: '02',
     title: 'Precision Targeting',
-    body: 'RevenueBase and Clay enrichment grades every company and contact A/B/C/D. Only top-tier leads enter your pipeline. No spray, no pray.',
+    body: 'AiArk and Clay enrichment grades every company and contact A/B/C/D. Only top-tier leads enter your pipeline. No spray, no pray.',
     color: '#FBBF24',
   },
   {
@@ -71,7 +71,7 @@ const DIFFERENTIATORS = [
 
 const STATS = [
   { num: 500,  prefix: '',   suffix: '+',  label: 'Campaigns Run',       sub: 'across all active clients'          },
-  { num: 25,   prefix: '≥',  suffix: '%',  label: 'Email Reply Rate',    sub: 'vs ~5% industry average'            },
+  { num: 8,    prefix: '≥',  suffix: '%',  label: 'Email Reply Rate',    sub: 'vs ~3% industry average'            },
   { num: 40,   prefix: '≥',  suffix: '%',  label: 'LinkedIn Reply Rate', sub: 'vs ~10% industry average'           },
   { num: 579,  prefix: '',   suffix: '',   label: 'Replies Analyzed',    sub: 'to validate our ICP criteria'       },
 ]
@@ -768,7 +768,7 @@ function Hero() {
                 '--delay': '0.2s',
               }}
             >
-              We run coordinated email and LinkedIn campaigns for B2B SaaS companies.
+              We run coordinated email and LinkedIn campaigns for companies that are B2B.
               Signal-based targeting, AI reply agents, and 75+ warmed domains per client.
               Pipeline in 30 days, not the 6 months it takes to ramp an SDR.
             </p>
@@ -837,7 +837,7 @@ function Hero() {
 }
 
 function ToolStackStrip() {
-  const tools = ['Clay', 'EmailBison', 'HeyReach', 'RevenueBase', 'Supabase', 'n8n']
+  const tools = ['Clay', 'EmailBison', 'HeyReach', 'AiArk', 'Supabase', 'n8n']
   return (
     <section style={{ background: '#F8FAFC', borderBottom: '1px solid #E2E8F0', padding: '18px 0' }}>
       <div className="max-w-6xl mx-auto px-6">
@@ -923,7 +923,7 @@ function Problem() {
                 '--delay': `${i * 0.1}s`,
               }}
             >
-              <div style={{ fontSize: '28px', marginBottom: '16px' }}>{p.icon}</div>
+              <div style={{ fontSize: '28px', marginBottom: '16px', textAlign: 'center' }}>{p.icon}</div>
               <h3 style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '17px', color: '#1E293B', marginBottom: '10px' }}>
                 {p.title}
               </h3>
@@ -1116,7 +1116,7 @@ function HowItWorks() {
 function WorkflowSplit() {
   const weHandle = [
     'Signal detection: funding rounds, hiring spikes, conference attendance, competitor customers',
-    'Lead sourcing across RevenueBase, Clay, and Apollo',
+    'Lead sourcing across AiArk, Clay, and Apollo',
     'ICP grading: every contact graded A/B/C/D across 20+ data points',
     'Email infrastructure: 75+ warmed domains with active monitoring',
     'Sequence writing: email (3-touch, 3 variants) and LinkedIn (connection + 2 DMs)',
