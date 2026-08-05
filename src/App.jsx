@@ -1362,6 +1362,37 @@ function WhyUs() {
 }
 
 function Results() {
+  const [showModal, setShowModal] = useState(false)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState('idle')
+
+  useEffect(() => {
+    if (!showModal) return
+    const onKey = (e) => { if (e.key === 'Escape') setShowModal(false) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [showModal])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setStatus('submitting')
+    try {
+      const res = await fetch('/api/notify-pricing-click', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email }),
+      })
+      if (!res.ok) throw new Error('failed')
+      setShowModal(false)
+      setName('')
+      setEmail('')
+      setStatus('idle')
+    } catch {
+      setStatus('error')
+    }
+  }
+
   return (
     <section id="results" style={{ padding: '96px 0', background: '#fff' }}>
       <div className="max-w-6xl mx-auto px-6">
@@ -1438,11 +1469,9 @@ function Results() {
               <span style={{ color: '#475569', display: 'block', marginTop: '6px' }}>That is $480K+ per year to reach the same output. Command Pipeline: flat monthly fee, zero headcount risk, no 6-month ramp.</span>
             </p>
           </div>
-          <a
-            href="#cta"
-            onClick={() => {
-              fetch('/api/notify-pricing-click', { method: 'POST' }).catch(() => {})
-            }}
+          <button
+            type="button"
+            onClick={() => setShowModal(true)}
             style={{
               backgroundColor: '#FF8559',
               color: '#fff',
@@ -1451,15 +1480,128 @@ function Results() {
               fontSize: '14px',
               padding: '14px 28px',
               borderRadius: '8px',
-              textDecoration: 'none',
+              border: 'none',
+              cursor: 'pointer',
               whiteSpace: 'nowrap',
             }}
             className="hover:opacity-90 transition-opacity"
           >
             Get a Pricing Breakdown
-          </a>
+          </button>
         </div>
       </div>
+
+      {showModal && (
+        <div
+          onClick={() => { if (status !== 'submitting') setShowModal(false) }}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(10,10,14,0.72)',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '24px',
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: '#1C1C24',
+              border: '1px solid rgba(255,255,255,0.08)',
+              borderRadius: '16px',
+              padding: '32px',
+              maxWidth: '420px',
+              width: '100%',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+            }}
+          >
+            <p style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '20px', color: '#fff', marginBottom: '8px' }}>
+              Get Your Pricing Breakdown
+            </p>
+            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', color: '#94A3B8', marginBottom: '24px', lineHeight: 1.6 }}>
+              Tell us where to send it — we'll follow up with a custom breakdown for your team.
+            </p>
+
+            <form onSubmit={handleSubmit}>
+              <label style={{ display: 'block', fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#CBD5E1', marginBottom: '6px' }}>
+                Full Name
+              </label>
+              <input
+                type="text"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Jane Smith"
+                style={{
+                  width: '100%',
+                  background: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.12)',
+                  borderRadius: '8px',
+                  padding: '10px 14px',
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '14px',
+                  color: '#fff',
+                  marginBottom: '18px',
+                  outline: 'none',
+                }}
+              />
+
+              <label style={{ display: 'block', fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#CBD5E1', marginBottom: '6px' }}>
+                Work Email
+              </label>
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="jane@company.com"
+                style={{
+                  width: '100%',
+                  background: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.12)',
+                  borderRadius: '8px',
+                  padding: '10px 14px',
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '14px',
+                  color: '#fff',
+                  marginBottom: '8px',
+                  outline: 'none',
+                }}
+              />
+
+              {status === 'error' && (
+                <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#FCA5A5', marginBottom: '8px' }}>
+                  Something went wrong — please try again.
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={status === 'submitting'}
+                style={{
+                  width: '100%',
+                  marginTop: '10px',
+                  backgroundColor: '#FF8559',
+                  color: '#fff',
+                  fontFamily: 'Montserrat, sans-serif',
+                  fontWeight: 700,
+                  fontSize: '14px',
+                  padding: '13px 28px',
+                  borderRadius: '8px',
+                  border: 'none',
+                  cursor: status === 'submitting' ? 'default' : 'pointer',
+                  opacity: status === 'submitting' ? 0.7 : 1,
+                }}
+                className="hover:opacity-90 transition-opacity"
+              >
+                {status === 'submitting' ? 'Submitting…' : 'Submit'}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
