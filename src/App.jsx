@@ -29,7 +29,7 @@ const STEPS = [
   {
     num: '03',
     title: 'Multi-Channel Sequences',
-    body: 'Coordinated 3-touch email sequences run in parallel with LinkedIn connection requests and messages. Timed to the signal, not blasted on a schedule.',
+    body: 'Coordinated 2 and 3-touch email sequences run in parallel with LinkedIn connection requests and messages. Timed to the signal, not blasted on a schedule.',
     color: '#FF8559',
   },
   {
@@ -154,7 +154,7 @@ const TESTIMONIALS = [
     result: '28%+ Email PRR from month two',
   },
   {
-    quote: 'The infrastructure surprised me most. 75+ warmed domains, daily monitoring, instant swap when something drops. Our previous agency had us sending from one domain with no backup plan. The deliverability difference showed up immediately in our reply rates.',
+    quote: 'The infrastructure surprised me most. 30-75+ warmed domains, daily monitoring, instant swap when something drops. Our previous agency had us sending from one domain with no backup plan. The deliverability difference showed up immediately in our reply rates.',
     name: '[Client Name]',
     title: 'Founder',
     company: 'Vertical SaaS · Seed',
@@ -168,7 +168,7 @@ const INCLUDED_ITEMS = [
     detail: 'ICP-qualified, enriched across 20+ data points, graded A/B/C/D in Clay. Only A/B contacts enter your pipeline.',
   },
   {
-    title: 'Email sequences (3-touch, 3 variants)',
+    title: 'Email sequences (2 & 3-touch, 3 variants)',
     detail: 'Written per the GEX framework. Under 75 words per email. Three distinct copy angles. QA\'d before launch.',
   },
   {
@@ -176,7 +176,7 @@ const INCLUDED_ITEMS = [
     detail: 'Connection request + 2 follow-up DMs. Platform-native tone, coordinated timing with email.',
   },
   {
-    title: 'Email infrastructure (75+ domains)',
+    title: 'Email infrastructure (30-75+ domains)',
     detail: 'Backup domains always warming. Instant swap when performance drops. Zero waiting, zero downtime.',
   },
   {
@@ -224,12 +224,12 @@ const COMPARISON_ROWS = [
   { label: 'Monthly cost',                cp: 'Flat monthly fee',        inhouse: '$40K+/month',          other: 'Variable'        },
   { label: 'Multi-channel by default',    cp: true,                      inhouse: false,                  other: false             },
   { label: 'Signal-based targeting',      cp: true,                      inhouse: false,                  other: false             },
-  { label: '75+ warmed domains',          cp: true,                      inhouse: false,                  other: 'Varies'          },
+  { label: '30-75+ warmed domains',          cp: true,                      inhouse: false,                  other: 'Varies'          },
   { label: 'AI reply agents (5 min)',     cp: true,                      inhouse: false,                  other: false             },
   { label: 'Full CRM sync',              cp: true,                      inhouse: 'Manual',               other: false             },
   { label: 'Weekly reporting',            cp: true,                      inhouse: false,                  other: 'If requested'    },
   { label: 'You own all assets',          cp: true,                      inhouse: true,                   other: false             },
-  { label: 'Positive Reply Rate',         cp: '≥25% email / ≥40% LI',   inhouse: 'Varies by SDR',        other: '3-8% typical'    },
+  { label: 'Positive Reply Rate',         cp: '≥8% email / ≥40% LI',    inhouse: 'Varies by SDR',        other: '3-8% typical'    },
 ]
 
 const JOURNEY_STEPS = [
@@ -242,7 +242,7 @@ const JOURNEY_STEPS = [
   {
     phase: 'Week 1',
     title: 'Infrastructure',
-    body: '75+ email domains purchased and entering warm-up. HeyReach configured for LinkedIn. DNC blocklist imported. CRM sync connected and tested.',
+    body: '30-75+ email domains purchased and entering warm-up. HeyReach configured for LinkedIn. DNC blocklist imported. CRM sync connected and tested.',
     color: '#FBBF24',
   },
   {
@@ -272,7 +272,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'We tried cold email before and it did not work.',
-    a: 'What did not work was almost certainly one of three things: no signal targeting (cold list, no intent), no infrastructure (burned domains, deliverability issues), or single-channel execution (email-only with no LinkedIn coordination). We run differently at every layer. Multi-channel by default, 75+ warmed domains per client, 5-tier signal targeting, AI reply agents. The mechanics are fundamentally different.',
+    a: 'What did not work was almost certainly one of three things: no signal targeting (cold list, no intent), no infrastructure (burned domains, deliverability issues), or single-channel execution (email-only with no LinkedIn coordination). We run differently at every layer. Multi-channel by default, 30-75+ warmed domains per client, 5-tier signal targeting, AI reply agents. The mechanics are fundamentally different.',
   },
   {
     q: 'How is this different from giving us Clay and a Smartlead account?',
@@ -288,7 +288,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'How do you handle deliverability?',
-    a: '75+ warmed domains per client. We always keep backup domains warming in reserve. If your goal is 500 emails per day, we build capacity for 750. When a domain\'s performance drops, we swap instantly. You never wait 2 weeks to recover. Weekly deliverability monitoring is included.',
+    a: '30-75+ warmed domains per client. We always keep backup domains warming in reserve. If your goal is 500 emails per day, we build capacity for 750. When a domain\'s performance drops, we swap instantly. You never wait 2 weeks to recover. Weekly deliverability monitoring is included.',
   },
   {
     q: 'What CRMs do you work with?',
@@ -769,7 +769,7 @@ function Hero() {
               }}
             >
               We run coordinated email and LinkedIn campaigns for companies that are B2B.
-              Signal-based targeting, AI reply agents, and 75+ warmed domains per client.
+              Signal-based targeting, AI reply agents, and 30-75+ warmed domains per client.
               Pipeline in 30 days, not the 6 months it takes to ramp an SDR.
             </p>
 
@@ -1116,10 +1116,10 @@ function HowItWorks() {
 function WorkflowSplit() {
   const weHandle = [
     'Signal detection: funding rounds, hiring spikes, conference attendance, competitor customers',
-    'Lead sourcing across AiArk, Clay, and Apollo',
+    'Lead sourcing across AiArk, Clay, Apollo and Google Maps',
     'ICP grading: every contact graded A/B/C/D across 20+ data points',
-    'Email infrastructure: 75+ warmed domains with active monitoring',
-    'Sequence writing: email (3-touch, 3 variants) and LinkedIn (connection + 2 DMs)',
+    'Email infrastructure: 30-75+ warmed domains with active monitoring',
+    'Sequence writing: email (2 & 3-touch, 3 variants) and LinkedIn (connection + 2 DMs)',
     'Campaign launch, monitoring, and deliverability management',
     'AI reply triage: every interested reply flagged in Slack within 5 minutes',
     'Cross-channel DNC coordination across email and LinkedIn',
@@ -1376,13 +1376,13 @@ function Results() {
               Email Channel
             </p>
             <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '64px', color: '#E8A000', lineHeight: 1, marginBottom: '8px' }}>
-              ≥25%
+              ≥8%
             </div>
             <p style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '16px', color: '#1E293B', marginBottom: '6px' }}>
               Positive Reply Rate
             </p>
             <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', color: '#94A3B8', marginBottom: '16px' }}>
-              Industry average: ~5% · Our floor is their ceiling.
+              Industry average: ~3% · Our floor is their ceiling.
             </p>
             <div style={{ background: '#E2E8F0', borderRadius: '8px', padding: '12px 16px' }}>
               <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#475569' }}>
@@ -1662,6 +1662,44 @@ function Testimonials() {
         pointerEvents: 'none',
       }} />
       <div className="max-w-6xl mx-auto px-6" style={{ position: 'relative' }}>
+        <div className="observe-fade" style={{ maxWidth: '640px', margin: '0 auto 64px' }}>
+          <div style={{
+            background: 'rgba(255,255,255,0.04)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: '16px',
+            padding: '32px 28px',
+          }}>
+            <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '12px', color: '#E8A000', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '18px' }}>
+              LinkedIn Recommendation
+            </p>
+            <p style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '15px',
+              color: '#CBD5E1',
+              lineHeight: 1.7,
+              fontStyle: 'italic',
+              marginBottom: '24px',
+            }}>
+              "I had the pleasure of working with Bilal during a short-term engagement where he stepped in to cover for one of my GTM Engineers on extended leave. In just five weeks, he ramped up faster than most people do in twice the time. Bilal hit the ground running with work in Clay and quickly picked up several other GTM tools we work with without needing much hand-holding. What stood out most was how seamlessly he integrated with the team — no adjustment period, no friction. He just showed up, got to work, and delivered. If you are considering Bilal for a position, stop thinking and hire him."
+            </p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '20px' }}>
+              <img
+                src="/cameron-legge.jpg"
+                alt="Cameron Legge"
+                style={{ width: '44px', height: '44px', borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
+              />
+              <div>
+                <p style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '14px', color: '#fff', marginBottom: '3px' }}>
+                  Cameron Legge
+                </p>
+                <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#64748B' }}>
+                  CCO · LeanScale
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="text-center mb-16 observe-fade">
           <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '12px', color: '#E8A000', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '12px' }}>
             Client Results
