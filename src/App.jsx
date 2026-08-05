@@ -401,7 +401,9 @@ function Navbar() {
 
           <div className="hidden md:flex items-center gap-3">
             <a
-              href="#cta"
+              href="https://calendly.com/commandpipeline/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 backgroundColor: '#FF8559',
                 color: '#fff',
@@ -443,7 +445,9 @@ function Navbar() {
               </a>
             ))}
             <a
-              href="#cta"
+              href="https://calendly.com/commandpipeline/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setOpen(false)}
               style={{
                 backgroundColor: '#FF8559',
@@ -2065,7 +2069,9 @@ function CTA() {
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px', position: 'relative' }}>
             <a
-              href="mailto:hello@commandpipeline.com"
+              href="https://calendly.com/commandpipeline/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 display: 'inline-block',
                 backgroundColor: '#FF8559',
