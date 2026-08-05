@@ -138,27 +138,30 @@ const ICP_SEGMENTS = [
 ]
 
 // Replace these with real client testimonials before launch
-const TESTIMONIALS = [
+const RESULTS_SCREENSHOTS = [
   {
-    quote: 'We went from founder-led cold outreach to a systematic multi-channel process in about 30 days. Signal targeting made the difference. We were reaching people with a real reason to talk, not just names that matched a job title. 47 interested replies in the first 90 days.',
-    name: '[Client Name]',
-    title: 'CEO',
-    company: 'B2B SaaS · Series A',
-    result: '47 positive replies in 90 days',
+    img: '/results/investor-audience.png',
+    campaign: 'Investor Audience Campaign',
+    sent: '4,096 emails sent',
+    result: '39 positive replies · 33.05% Positive Reply Rate',
   },
   {
-    quote: 'We tried email-only outbound before and stalled at 3% reply rates. The coordinated email and LinkedIn approach was completely different. By month two, qualified pipeline was coming in every week. The AI reply triage meant no interested lead sat cold for more than 5 minutes.',
-    name: '[Client Name]',
-    title: 'Head of Growth',
-    company: 'PropTech · Seed',
-    result: '28%+ Email PRR from month two',
+    img: '/results/imn-west.png',
+    campaign: 'IMN West 2026 — Newport Beach',
+    sent: '86 emails sent',
+    result: '7 positive replies · 58.33% Positive Reply Rate',
   },
   {
-    quote: 'The infrastructure surprised me most. 30-75+ warmed domains, daily monitoring, instant swap when something drops. Our previous agency had us sending from one domain with no backup plan. The deliverability difference showed up immediately in our reply rates.',
-    name: '[Client Name]',
-    title: 'Founder',
-    company: 'Vertical SaaS · Seed',
-    result: 'Pipeline booked in week 4 of launch',
+    img: '/results/crux-sos-owner.png',
+    campaign: 'CRUX #4 — SoS Owner User',
+    sent: '2,222 emails sent',
+    result: '18 positive replies · 15.13% Positive Reply Rate',
+  },
+  {
+    img: '/results/icsc-vegas.png',
+    campaign: 'ICSC Vegas — May 18-20',
+    sent: '1,234 emails sent',
+    result: '5 positive replies · 13.51% Positive Reply Rate',
   },
 ]
 
@@ -1652,6 +1655,15 @@ function ClientJourney() {
 }
 
 function Testimonials() {
+  const [expanded, setExpanded] = useState(null)
+
+  useEffect(() => {
+    if (expanded === null) return
+    const onKey = (e) => { if (e.key === 'Escape') setExpanded(null) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [expanded])
+
   return (
     <section id="testimonials" style={{ padding: '96px 0', background: '#1C1C24', position: 'relative', overflow: 'hidden' }}>
       <div style={{
@@ -1705,58 +1717,46 @@ function Testimonials() {
             Client Results
           </p>
           <h2 style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: 'clamp(26px, 3.5vw, 36px)', color: '#fff', marginBottom: '16px', letterSpacing: '-0.01em' }}>
-            What our clients say
+            Real campaigns, straight from the dashboard
           </h2>
           <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '16px', color: '#94A3B8', maxWidth: '480px', margin: '0 auto', lineHeight: 1.6 }}>
-            Every quote is real. Every number is verified.
+            Every screenshot is unedited. Every number is real.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {TESTIMONIALS.map((t, i) => (
+        <div className="grid md:grid-cols-2 gap-6">
+          {RESULTS_SCREENSHOTS.map((r, i) => (
             <div
               key={i}
+              onClick={() => setExpanded(i)}
               className="card-hover-dark observe-fade"
               style={{
                 background: 'rgba(255,255,255,0.04)',
                 border: '1px solid rgba(255,255,255,0.08)',
                 borderRadius: '16px',
-                padding: '32px 28px',
+                padding: '20px',
                 display: 'flex',
                 flexDirection: 'column',
+                cursor: 'pointer',
                 '--delay': `${i * 0.1}s`,
               }}
             >
-              {/* Stars */}
-              <div style={{ color: '#E8A000', fontSize: '16px', letterSpacing: '2px', marginBottom: '20px' }}>
-                ★★★★★
+              <div style={{ background: '#fff', borderRadius: '10px', padding: '10px', marginBottom: '20px', overflowX: 'auto' }}>
+                <img
+                  src={r.img}
+                  alt={r.campaign}
+                  style={{ display: 'block', width: '100%', minWidth: '480px', height: 'auto' }}
+                />
               </div>
 
-              {/* Quote */}
-              <p style={{
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '15px',
-                color: '#CBD5E1',
-                lineHeight: 1.7,
-                fontStyle: 'italic',
-                flex: 1,
-                marginBottom: '24px',
-              }}>
-                "{t.quote}"
-              </p>
-
-              {/* Attribution */}
               <div>
-                <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '20px', marginBottom: '14px' }}>
-                  <p style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '14px', color: '#fff', marginBottom: '3px' }}>
-                    {t.name}
-                  </p>
-                  <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#64748B' }}>
-                    {t.title} · {t.company}
-                  </p>
-                </div>
+                <p style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '14px', color: '#fff', marginBottom: '3px' }}>
+                  {r.campaign}
+                </p>
+                <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#64748B', marginBottom: '14px' }}>
+                  {r.sent}
+                </p>
 
-                {/* Result badge */}
                 <div style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -1768,7 +1768,7 @@ function Testimonials() {
                 }}>
                   <Check size={12} color="#E8A000" strokeWidth={2.5} />
                   <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', color: '#E8A000', fontWeight: 600 }}>
-                    {t.result}
+                    {r.result}
                   </span>
                 </div>
               </div>
@@ -1776,6 +1776,67 @@ function Testimonials() {
           ))}
         </div>
       </div>
+
+      {expanded !== null && (
+        <div
+          onClick={() => setExpanded(null)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(10,10,14,0.88)',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '40px 24px',
+            cursor: 'pointer',
+          }}
+        >
+          <div
+            style={{
+              background: '#22222C',
+              border: '1px solid rgba(255,255,255,0.08)',
+              borderRadius: '16px',
+              padding: '28px',
+              maxWidth: '720px',
+              width: '100%',
+              maxHeight: '100%',
+              overflowY: 'auto',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+            }}
+          >
+            <div style={{ background: '#fff', borderRadius: '10px', padding: '10px', marginBottom: '24px', overflowX: 'auto' }}>
+              <img
+                src={RESULTS_SCREENSHOTS[expanded].img}
+                alt={RESULTS_SCREENSHOTS[expanded].campaign}
+                style={{ display: 'block', width: '100%', minWidth: '480px', height: 'auto' }}
+              />
+            </div>
+
+            <p style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '20px', color: '#fff', marginBottom: '6px' }}>
+              {RESULTS_SCREENSHOTS[expanded].campaign}
+            </p>
+            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px', color: '#94A3B8', marginBottom: '20px' }}>
+              {RESULTS_SCREENSHOTS[expanded].sent}
+            </p>
+
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'rgba(232,160,0,0.1)',
+              border: '1px solid rgba(232,160,0,0.2)',
+              borderRadius: '100px',
+              padding: '8px 18px',
+            }}>
+              <Check size={16} color="#E8A000" strokeWidth={2.5} />
+              <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px', color: '#E8A000', fontWeight: 600 }}>
+                {RESULTS_SCREENSHOTS[expanded].result}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
