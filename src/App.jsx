@@ -383,7 +383,7 @@ function Navbar() {
       <nav style={{ borderBottom: '1px solid #E2E8F0', background: '#fff' }}>
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <a href="#" className="flex items-center gap-3">
-            <img src="/cp-logo-full.png" alt="Command Pipeline" className="h-8 w-auto" />
+            <img src="/cp-logo-full.png" alt="Command Pipeline" className="h-11 w-auto" />
           </a>
 
           <div className="hidden md:flex items-center gap-8">
@@ -2109,7 +2109,7 @@ function Footer() {
           <div>
             <a href="#" className="flex items-center gap-3 mb-4">
               <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '8px', padding: '6px 12px', display: 'inline-block' }}>
-                <img src="/cp-logo-full.png" alt="Command Pipeline" style={{ height: '28px', width: 'auto', display: 'block' }} />
+                <img src="/cp-logo-full.png" alt="Command Pipeline" style={{ height: '40px', width: 'auto', display: 'block' }} />
               </div>
             </a>
             <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', color: '#94A3B8', lineHeight: 1.6, maxWidth: '280px' }}>
