@@ -1440,6 +1440,9 @@ function Results() {
           </div>
           <a
             href="#cta"
+            onClick={() => {
+              fetch('/api/notify-pricing-click', { method: 'POST' }).catch(() => {})
+            }}
             style={{
               backgroundColor: '#FF8559',
               color: '#fff',
