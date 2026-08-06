@@ -1476,6 +1476,7 @@ function Results() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('idle')
+  const [expanded, setExpanded] = useState(null)
 
   useEffect(() => {
     if (!showModal) return
@@ -1483,6 +1484,13 @@ function Results() {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [showModal])
+
+  useEffect(() => {
+    if (expanded === null) return
+    const onKey = (e) => { if (e.key === 'Escape') setExpanded(null) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [expanded])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -1560,6 +1568,109 @@ function Results() {
           </div>
         </div>
 
+        {/* Real campaign proof, backing the benchmark numbers above */}
+        <div id="testimonials" style={{ position: 'relative', top: '-104px' }} />
+        <div className="text-center observe-fade" style={{ marginTop: '72px', marginBottom: '40px' }}>
+          <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '12px', color: '#E8A000', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '12px' }}>
+            Client Results
+          </p>
+          <h3 style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: 'clamp(22px, 2.8vw, 30px)', color: '#1E293B', marginBottom: '14px', letterSpacing: '-0.01em' }}>
+            And here are those numbers, straight from the dashboard
+          </h3>
+          <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '16px', color: '#475569', maxWidth: '480px', margin: '0 auto', lineHeight: 1.6 }}>
+            Every screenshot is unedited. Every number is real.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6" style={{ marginBottom: '48px' }}>
+          {RESULTS_SCREENSHOTS.map((r, i) => (
+            <div
+              key={i}
+              onClick={() => setExpanded(i)}
+              className="card-hover observe-fade"
+              style={{
+                background: '#F8FAFC',
+                border: '1px solid #E2E8F0',
+                borderRadius: '16px',
+                padding: '20px',
+                display: 'flex',
+                flexDirection: 'column',
+                cursor: 'pointer',
+                '--delay': `${i * 0.1}s`,
+              }}
+            >
+              <div style={{ background: '#fff', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '10px', marginBottom: '20px', overflowX: 'auto' }}>
+                <img
+                  src={r.img}
+                  alt={r.campaign}
+                  style={{ display: 'block', width: '100%', minWidth: '480px', height: 'auto' }}
+                />
+              </div>
+              <div>
+                <p style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '14px', color: '#1E293B', marginBottom: '3px' }}>
+                  {r.campaign}
+                </p>
+                <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#64748B', marginBottom: '14px' }}>
+                  {r.sent}
+                </p>
+                <div style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  background: 'rgba(232,160,0,0.1)',
+                  border: '1px solid rgba(232,160,0,0.25)',
+                  borderRadius: '100px',
+                  padding: '4px 12px',
+                }}>
+                  <Check size={12} color="#B87A00" strokeWidth={2.5} />
+                  <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', color: '#B87A00', fontWeight: 700 }}>
+                    {r.result}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* LinkedIn recommendation */}
+        <div className="observe-fade" style={{ maxWidth: '640px', margin: '0 auto 56px' }}>
+          <div style={{
+            background: '#F8FAFC',
+            border: '1px solid #E2E8F0',
+            borderRadius: '16px',
+            padding: '32px 28px',
+          }}>
+            <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '12px', color: '#E8A000', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '18px' }}>
+              LinkedIn Recommendation
+            </p>
+            <p style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '15px',
+              color: '#475569',
+              lineHeight: 1.7,
+              fontStyle: 'italic',
+              marginBottom: '24px',
+            }}>
+              "I had the pleasure of working with Bilal during a short-term engagement where he stepped in to cover for one of my GTM Engineers on extended leave. In just five weeks, he ramped up faster than most people do in twice the time. Bilal hit the ground running with work in Clay and quickly picked up several other GTM tools we work with without needing much hand-holding. What stood out most was how seamlessly he integrated with the team — no adjustment period, no friction. He just showed up, got to work, and delivered. If you are considering Bilal for a position, stop thinking and hire him."
+            </p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', borderTop: '1px solid #E2E8F0', paddingTop: '20px' }}>
+              <img
+                src="/cameron-legge.jpg"
+                alt="Cameron Legge"
+                style={{ width: '44px', height: '44px', borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
+              />
+              <div>
+                <p style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '14px', color: '#1E293B', marginBottom: '3px' }}>
+                  Cameron Legge
+                </p>
+                <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#64748B' }}>
+                  CCO · LeanScale
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div id="pricing" style={{ position: 'relative', top: '-104px' }} />
         <div className="observe-fade" style={{
           background: '#1C1C24',
@@ -1602,6 +1713,66 @@ function Results() {
         </div>
       </div>
 
+      {expanded !== null && (
+        <div
+          onClick={() => setExpanded(null)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(10,10,14,0.88)',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '40px 24px',
+            cursor: 'pointer',
+          }}
+        >
+          <div
+            style={{
+              background: '#22222C',
+              border: '1px solid rgba(255,255,255,0.08)',
+              borderRadius: '16px',
+              padding: '28px',
+              maxWidth: '720px',
+              width: '100%',
+              maxHeight: '100%',
+              overflowY: 'auto',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+            }}
+          >
+            <div style={{ background: '#fff', borderRadius: '10px', padding: '10px', marginBottom: '24px', overflowX: 'auto' }}>
+              <img
+                src={RESULTS_SCREENSHOTS[expanded].img}
+                alt={RESULTS_SCREENSHOTS[expanded].campaign}
+                style={{ display: 'block', width: '100%', minWidth: '480px', height: 'auto' }}
+              />
+            </div>
+
+            <p style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '20px', color: '#fff', marginBottom: '6px' }}>
+              {RESULTS_SCREENSHOTS[expanded].campaign}
+            </p>
+            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px', color: '#94A3B8', marginBottom: '20px' }}>
+              {RESULTS_SCREENSHOTS[expanded].sent}
+            </p>
+
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'rgba(232,160,0,0.1)',
+              border: '1px solid rgba(232,160,0,0.2)',
+              borderRadius: '100px',
+              padding: '8px 18px',
+            }}>
+              <Check size={16} color="#E8A000" strokeWidth={2.5} />
+              <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px', color: '#E8A000', fontWeight: 600 }}>
+                {RESULTS_SCREENSHOTS[expanded].result}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
       {showModal && (
         <div
           onClick={() => { if (status !== 'submitting') setShowModal(false) }}
@@ -1910,193 +2081,6 @@ function ClientJourney() {
           </div>
         </div>
       </div>
-    </section>
-  )
-}
-
-function Testimonials() {
-  const [expanded, setExpanded] = useState(null)
-
-  useEffect(() => {
-    if (expanded === null) return
-    const onKey = (e) => { if (e.key === 'Escape') setExpanded(null) }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [expanded])
-
-  return (
-    <section id="testimonials" style={{ padding: '96px 0', background: '#1C1C24', position: 'relative', overflow: 'hidden' }}>
-      <div style={{
-        position: 'absolute', top: '50%', left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '900px', height: '600px',
-        background: 'radial-gradient(ellipse at center, rgba(232,160,0,0.07) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
-      <div className="max-w-6xl mx-auto px-6" style={{ position: 'relative' }}>
-        <div className="observe-fade" style={{ maxWidth: '640px', margin: '0 auto 64px' }}>
-          <div style={{
-            background: 'rgba(255,255,255,0.04)',
-            border: '1px solid rgba(255,255,255,0.08)',
-            borderRadius: '16px',
-            padding: '32px 28px',
-          }}>
-            <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '12px', color: '#E8A000', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '18px' }}>
-              LinkedIn Recommendation
-            </p>
-            <p style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '15px',
-              color: '#CBD5E1',
-              lineHeight: 1.7,
-              fontStyle: 'italic',
-              marginBottom: '24px',
-            }}>
-              "I had the pleasure of working with Bilal during a short-term engagement where he stepped in to cover for one of my GTM Engineers on extended leave. In just five weeks, he ramped up faster than most people do in twice the time. Bilal hit the ground running with work in Clay and quickly picked up several other GTM tools we work with without needing much hand-holding. What stood out most was how seamlessly he integrated with the team — no adjustment period, no friction. He just showed up, got to work, and delivered. If you are considering Bilal for a position, stop thinking and hire him."
-            </p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '20px' }}>
-              <img
-                src="/cameron-legge.jpg"
-                alt="Cameron Legge"
-                style={{ width: '44px', height: '44px', borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
-              />
-              <div>
-                <p style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '14px', color: '#fff', marginBottom: '3px' }}>
-                  Cameron Legge
-                </p>
-                <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#64748B' }}>
-                  CCO · LeanScale
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="text-center mb-16 observe-fade">
-          <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '12px', color: '#E8A000', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '12px' }}>
-            Client Results
-          </p>
-          <h2 style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: 'clamp(26px, 3.5vw, 36px)', color: '#fff', marginBottom: '16px', letterSpacing: '-0.01em' }}>
-            Real campaigns, straight from the dashboard
-          </h2>
-          <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '16px', color: '#94A3B8', maxWidth: '480px', margin: '0 auto', lineHeight: 1.6 }}>
-            Every screenshot is unedited. Every number is real.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          {RESULTS_SCREENSHOTS.map((r, i) => (
-            <div
-              key={i}
-              onClick={() => setExpanded(i)}
-              className="card-hover-dark observe-fade"
-              style={{
-                background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: '16px',
-                padding: '20px',
-                display: 'flex',
-                flexDirection: 'column',
-                cursor: 'pointer',
-                '--delay': `${i * 0.1}s`,
-              }}
-            >
-              <div style={{ background: '#fff', borderRadius: '10px', padding: '10px', marginBottom: '20px', overflowX: 'auto' }}>
-                <img
-                  src={r.img}
-                  alt={r.campaign}
-                  style={{ display: 'block', width: '100%', minWidth: '480px', height: 'auto' }}
-                />
-              </div>
-
-              <div>
-                <p style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '14px', color: '#fff', marginBottom: '3px' }}>
-                  {r.campaign}
-                </p>
-                <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#64748B', marginBottom: '14px' }}>
-                  {r.sent}
-                </p>
-
-                <div style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  background: 'rgba(232,160,0,0.1)',
-                  border: '1px solid rgba(232,160,0,0.2)',
-                  borderRadius: '100px',
-                  padding: '4px 12px',
-                }}>
-                  <Check size={12} color="#E8A000" strokeWidth={2.5} />
-                  <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', color: '#E8A000', fontWeight: 600 }}>
-                    {r.result}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {expanded !== null && (
-        <div
-          onClick={() => setExpanded(null)}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            background: 'rgba(10,10,14,0.88)',
-            zIndex: 1000,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '40px 24px',
-            cursor: 'pointer',
-          }}
-        >
-          <div
-            style={{
-              background: '#22222C',
-              border: '1px solid rgba(255,255,255,0.08)',
-              borderRadius: '16px',
-              padding: '28px',
-              maxWidth: '720px',
-              width: '100%',
-              maxHeight: '100%',
-              overflowY: 'auto',
-              boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
-            }}
-          >
-            <div style={{ background: '#fff', borderRadius: '10px', padding: '10px', marginBottom: '24px', overflowX: 'auto' }}>
-              <img
-                src={RESULTS_SCREENSHOTS[expanded].img}
-                alt={RESULTS_SCREENSHOTS[expanded].campaign}
-                style={{ display: 'block', width: '100%', minWidth: '480px', height: 'auto' }}
-              />
-            </div>
-
-            <p style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '20px', color: '#fff', marginBottom: '6px' }}>
-              {RESULTS_SCREENSHOTS[expanded].campaign}
-            </p>
-            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px', color: '#94A3B8', marginBottom: '20px' }}>
-              {RESULTS_SCREENSHOTS[expanded].sent}
-            </p>
-
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              background: 'rgba(232,160,0,0.1)',
-              border: '1px solid rgba(232,160,0,0.2)',
-              borderRadius: '100px',
-              padding: '8px 18px',
-            }}>
-              <Check size={16} color="#E8A000" strokeWidth={2.5} />
-              <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px', color: '#E8A000', fontWeight: 600 }}>
-                {RESULTS_SCREENSHOTS[expanded].result}
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   )
 }
@@ -2442,7 +2426,6 @@ export default function App() {
         <Results />
         <ComparisonTable />
         <ClientJourney />
-        <Testimonials />
         <FAQ />
         <CTA />
       </main>
