@@ -741,17 +741,17 @@ function Hero() {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '8px',
-                background: 'rgba(232,160,0,0.08)',
-                border: '1px solid rgba(232,160,0,0.2)',
+                gap: '10px',
+                background: 'linear-gradient(90deg, #E8A000 0%, #FF8559 100%)',
                 borderRadius: '100px',
-                padding: '6px 14px',
+                padding: '10px 20px',
                 marginBottom: '28px',
+                boxShadow: '0 8px 24px rgba(232,160,0,0.35)',
               }}
             >
-              <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#E8A000', display: 'inline-block', flexShrink: 0, animation: 'pulseDot 2s ease-in-out infinite' }} />
-              <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', fontWeight: 500, color: '#E8A000', letterSpacing: '0.02em' }}>
-                500+ campaigns · 2M+ emails · 579 replies analyzed
+              <span style={{ width: 9, height: 9, borderRadius: '50%', background: '#fff', display: 'inline-block', flexShrink: 0, animation: 'pulseDot 2s ease-in-out infinite' }} />
+              <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', fontWeight: 600, color: '#fff', letterSpacing: '0.01em' }}>
+                <strong style={{ fontWeight: 800 }}>500+</strong> campaigns · <strong style={{ fontWeight: 800 }}>2M+</strong> emails · <strong style={{ fontWeight: 800 }}>579</strong> replies analyzed
               </span>
             </div>
 
