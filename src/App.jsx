@@ -1145,18 +1145,15 @@ function HowItWorks() {
 }
 
 function WorkflowSplit() {
-  const weHandle = [
-    'Signal detection: funding rounds, hiring spikes, conference attendance, competitor customers',
-    'Lead sourcing across AiArk, Clay, Apollo and Google Maps',
-    'ICP grading: every contact graded A/B/C/D across 20+ data points',
-    'Email infrastructure: 30-75+ warmed domains with active monitoring',
-    'Sequence writing: email (2 & 3-touch, 3 variants) and LinkedIn (connection + 2 DMs)',
-    'Campaign launch, monitoring, and deliverability management',
-    'AI reply triage: every interested reply flagged in Slack within 5 minutes',
-    'Cross-channel DNC coordination across email and LinkedIn',
-    'Full CRM sync: every touchpoint logged automatically',
-    'Weekly reporting: PRR, campaign tier, what to scale and what to kill',
-  ]
+  const CARD_HEADING = {
+    fontFamily: 'Space Grotesk, sans-serif',
+    fontWeight: 700,
+    fontSize: '13px',
+    letterSpacing: '0.1em',
+    textTransform: 'uppercase',
+    margin: 0,
+    lineHeight: 1.2,
+  }
 
   return (
     <section style={{ background: '#1C1C24', padding: '96px 0', position: 'relative', overflow: 'hidden' }}>
@@ -1175,14 +1172,17 @@ function WorkflowSplit() {
           <h2 style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: 'clamp(26px, 3.5vw, 36px)', color: '#fff', marginBottom: '16px', letterSpacing: '-0.01em' }}>
             You focus on closing. We handle everything else.
           </h2>
+          <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '16px', color: '#94A3B8', maxWidth: '540px', margin: '0 auto', lineHeight: 1.6 }}>
+            One flat fee. Every deliverable below is included. Nothing is an upsell.
+          </p>
         </div>
 
-        <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap', alignItems: 'stretch' }}>
           {/* We handle */}
           <div
             className="observe-fade"
             style={{
-              flex: '1 1 420px',
+              flex: '1 1 560px',
               background: 'rgba(255,255,255,0.03)',
               border: '1px solid rgba(255,255,255,0.07)',
               borderTop: '3px solid #E8A000',
@@ -1190,18 +1190,23 @@ function WorkflowSplit() {
               padding: '36px',
             }}
           >
-            <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '13px', color: '#E8A000', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '24px' }}>
+            <p style={{ ...CARD_HEADING, color: '#E8A000', marginBottom: '26px' }}>
               We Take Care Of
             </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              {weHandle.map((item, i) => (
+            <div className="grid sm:grid-cols-2" style={{ gap: '22px' }}>
+              {INCLUDED_ITEMS.map((item, i) => (
                 <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                  <div style={{ flexShrink: 0, marginTop: '3px' }}>
+                  <div style={{ flexShrink: 0, marginTop: '2px' }}>
                     <Check size={15} color="#4ADE80" strokeWidth={2.5} />
                   </div>
-                  <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', color: '#94A3B8', lineHeight: 1.55 }}>
-                    {item}
-                  </span>
+                  <div>
+                    <h3 style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '14px', color: '#fff', marginBottom: '4px', lineHeight: 1.35 }}>
+                      {item.title}
+                    </h3>
+                    <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#94A3B8', lineHeight: 1.55 }}>
+                      {item.detail}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -1211,19 +1216,16 @@ function WorkflowSplit() {
           <div
             className="observe-fade"
             style={{
-              flex: '1 1 240px',
+              flex: '1 1 280px',
               background: 'rgba(255,133,89,0.06)',
               border: '1px solid rgba(255,133,89,0.15)',
               borderTop: '3px solid #FF8559',
               borderRadius: '16px',
               padding: '36px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
               '--delay': '0.1s',
             }}
           >
-            <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '13px', color: '#FF8559', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '32px' }}>
+            <p style={{ ...CARD_HEADING, color: '#FF8559', marginBottom: '26px' }}>
               All You Need To Do
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
@@ -1246,61 +1248,31 @@ function WorkflowSplit() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  )
-}
 
-function WhatIsIncluded() {
-  return (
-    <section style={{ padding: '96px 0', background: '#fff' }}>
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-16 observe-fade">
-          <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '12px', color: '#E8A000', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '12px' }}>
-            The Full Scope
+        <div className="observe-fade" style={{ marginTop: '48px', textAlign: 'center' }}>
+          <a
+            href="https://calendly.com/commandpipeline/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'inline-block',
+              backgroundColor: '#FF8559',
+              color: '#fff',
+              fontFamily: 'Montserrat, sans-serif',
+              fontWeight: 700,
+              fontSize: '15px',
+              padding: '15px 34px',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              letterSpacing: '0.02em',
+            }}
+            className="hover:opacity-90 transition-opacity"
+          >
+            Get a Free Outbound Audit
+          </a>
+          <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#64748B', marginTop: '14px' }}>
+            30 minutes · No commitment · Honest assessment
           </p>
-          <h2 style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: 'clamp(26px, 3.5vw, 36px)', color: '#1E293B', marginBottom: '16px', letterSpacing: '-0.01em' }}>
-            Everything in the system.
-            <br />
-            Nothing you have to build yourself.
-          </h2>
-          <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '16px', color: '#475569', maxWidth: '500px', margin: '0 auto', lineHeight: 1.6 }}>
-            One flat fee. Every deliverable below is included. Nothing is an upsell.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-5">
-          {INCLUDED_ITEMS.map((item, i) => (
-            <div
-              key={i}
-              className="observe-fade"
-              style={{
-                display: 'flex',
-                gap: '16px',
-                alignItems: 'flex-start',
-                background: '#F8FAFC',
-                border: '1px solid #E2E8F0',
-                borderRadius: '12px',
-                padding: '24px',
-                '--delay': `${(i % 4) * 0.07}s`,
-              }}
-            >
-              <div style={{
-                width: 32, height: 32, borderRadius: '8px', background: 'rgba(232,160,0,0.1)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-              }}>
-                <Check size={16} color="#E8A000" strokeWidth={2.5} />
-              </div>
-              <div>
-                <h3 style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '15px', color: '#1E293B', marginBottom: '6px' }}>
-                  {item.title}
-                </h3>
-                <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', color: '#475569', lineHeight: 1.6 }}>
-                  {item.detail}
-                </p>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     </section>
@@ -2351,13 +2323,12 @@ export default function App() {
         <TypewriterSection />
         <HowItWorks />
         <WorkflowSplit />
-        <WhatIsIncluded />
+        <WhoItsFor />
         <WhyUs />
         <Results />
         <ComparisonTable />
         <ClientJourney />
         <Testimonials />
-        <WhoItsFor />
         <FAQ />
         <CTA />
       </main>
