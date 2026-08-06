@@ -19,30 +19,35 @@ const STEPS = [
   {
     num: '01',
     title: 'Signal Intelligence',
+    Icon: Antenna,
     body: 'We scan for real-time buying signals: funding rounds, leadership hires, tech stack changes, and job postings. Your list is built on intent, not guesswork.',
     color: '#E8A000',
   },
   {
     num: '02',
     title: 'Precision Targeting',
+    Icon: Target,
     body: 'AiArk and Clay enrichment grades every company and contact A/B/C/D. Only top-tier leads enter your pipeline. No spray, no pray.',
     color: '#FBBF24',
   },
   {
     num: '03',
     title: 'Multi-Channel Sequences',
+    Icon: Share2,
     body: 'Coordinated 2 and 3-touch email sequences run in parallel with LinkedIn connection requests and messages. Timed to the signal, not blasted on a schedule.',
     color: '#FF8559',
   },
   {
     num: '04',
     title: 'AI-Augmented Execution',
+    Icon: Bot,
     body: 'AI reply agents respond within 5 minutes. Cross-channel coordination stops double-messaging. Every reply categorized and routed instantly.',
     color: '#E8A000',
   },
   {
     num: '05',
     title: 'Pipeline Attribution',
+    Icon: TrendingUp,
     body: 'Full CRM sync: every email sent, LinkedIn view, and connection request logged on your contact timeline. Direct and influence attribution tracked.',
     color: '#FBBF24',
   },
@@ -1066,9 +1071,9 @@ function TypewriterSection() {
   )
 }
 
-function StepCard({ step, index }) {
+function StepCard({ step, index, cardRef }) {
   return (
-    <div className="observe-fade" style={{ position: 'relative', borderRadius: '16px', '--delay': `${index * 0.08}s` }}>
+    <div ref={cardRef} className="observe-fade" style={{ position: 'relative', borderRadius: '16px', '--delay': `${index * 0.08}s` }}>
       <div style={{
         position: 'absolute', inset: 0, borderRadius: '16px',
         background: `linear-gradient(135deg, ${step.color}14 0%, transparent 55%)`,
@@ -1106,6 +1111,40 @@ function StepCard({ step, index }) {
 }
 
 function HowItWorks() {
+  const [active, setActive] = useState(0)
+  const stepRefs = useRef([])
+
+  useEffect(() => {
+    // Whichever step card sits closest to the vertical middle of the viewport wins.
+    // Only 5 nodes are measured, so this is cheap enough to run straight from the
+    // scroll handler (no rAF, which does not fire in background/hidden tabs).
+    const update = () => {
+      const nodes = stepRefs.current.filter(Boolean)
+      if (!nodes.length) return
+      const focus = window.innerHeight / 2
+      let bestIdx = 0
+      let bestDist = Infinity
+      nodes.forEach((node, i) => {
+        const r = node.getBoundingClientRect()
+        const dist = Math.abs(r.top + r.height / 2 - focus)
+        if (dist < bestDist) {
+          bestDist = dist
+          bestIdx = i
+        }
+      })
+      setActive(prev => (prev === bestIdx ? prev : bestIdx))
+    }
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    return () => {
+      window.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+    }
+  }, [])
+
+  const activeStep = STEPS[active]
+
   return (
     <section id="how-it-works" style={{ padding: '96px 0', background: '#fff' }}>
       <div className="max-w-6xl mx-auto px-6">
@@ -1122,21 +1161,96 @@ function HowItWorks() {
         </div>
 
         <div style={{ display: 'flex', gap: '72px', alignItems: 'flex-start' }}>
-          <div className="hidden md:block" style={{ flex: '0 0 260px', position: 'sticky', top: '120px' }}>
-            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px', color: '#475569', lineHeight: 1.7, marginBottom: '32px' }}>
+          <div className="hidden md:block" style={{ flex: '0 0 280px', position: 'sticky', top: '120px' }}>
+            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px', color: '#475569', lineHeight: 1.7, marginBottom: '28px' }}>
               Signal in, pipeline out. Each stage feeds the next.
             </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {STEPS.map((s, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <div style={{ width: 8, height: 8, borderRadius: '50%', background: s.color, flexShrink: 0 }} />
-                  <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#94A3B8' }}>{s.title}</span>
+
+            {/* Stage imagery — reflects the stage currently in view */}
+            <div style={{
+              position: 'relative',
+              borderRadius: '16px',
+              padding: '28px 24px',
+              marginBottom: '28px',
+              background: `linear-gradient(150deg, ${activeStep.color}1F 0%, ${activeStep.color}08 55%, transparent 100%)`,
+              border: `1px solid ${activeStep.color}33`,
+              overflow: 'hidden',
+              transition: 'background 0.45s ease, border-color 0.45s ease',
+            }}>
+              <div style={{
+                position: 'absolute', right: '-26px', bottom: '-26px',
+                width: '132px', height: '132px', borderRadius: '50%',
+                background: `${activeStep.color}14`,
+                transition: 'background 0.45s ease',
+              }} />
+              <div style={{ position: 'relative' }}>
+                <div style={{
+                  width: 56, height: 56, borderRadius: '14px',
+                  background: activeStep.color,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  marginBottom: '18px',
+                  boxShadow: `0 10px 24px ${activeStep.color}59`,
+                  transition: 'background 0.45s ease, box-shadow 0.45s ease',
+                }}>
+                  <activeStep.Icon size={26} color="#fff" strokeWidth={1.9} />
                 </div>
-              ))}
+                <p style={{
+                  fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '12px',
+                  color: activeStep.color, letterSpacing: '0.12em', marginBottom: '6px',
+                  transition: 'color 0.45s ease',
+                }}>
+                  STAGE {activeStep.num}
+                </p>
+                <p style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '17px', color: '#1E293B', lineHeight: 1.3 }}>
+                  {activeStep.title}
+                </p>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              {STEPS.map((s, i) => {
+                const isActive = i === active
+                return (
+                  <div
+                    key={i}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '11px',
+                      padding: '8px 12px',
+                      borderRadius: '8px',
+                      background: isActive ? `${s.color}14` : 'transparent',
+                      borderLeft: `3px solid ${isActive ? s.color : 'transparent'}`,
+                      transition: 'background 0.3s ease, border-color 0.3s ease',
+                    }}
+                  >
+                    <div style={{
+                      width: isActive ? 10 : 8,
+                      height: isActive ? 10 : 8,
+                      borderRadius: '50%',
+                      background: s.color,
+                      opacity: isActive ? 1 : 0.4,
+                      flexShrink: 0,
+                      transition: 'all 0.3s ease',
+                    }} />
+                    <span style={{
+                      fontFamily: 'Inter, sans-serif',
+                      fontSize: '13px',
+                      fontWeight: isActive ? 600 : 400,
+                      color: isActive ? '#1E293B' : '#94A3B8',
+                      transition: 'color 0.3s ease, font-weight 0.3s ease',
+                    }}>
+                      {s.title}
+                    </span>
+                  </div>
+                )
+              })}
             </div>
           </div>
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            {STEPS.map((step, i) => <StepCard key={i} step={step} index={i} />)}
+            {STEPS.map((step, i) => (
+              <StepCard key={i} step={step} index={i} cardRef={el => (stepRefs.current[i] = el)} />
+            ))}
           </div>
         </div>
       </div>
