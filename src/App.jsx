@@ -418,7 +418,7 @@ function Navbar() {
               }}
               className="hover:opacity-90 transition-opacity"
             >
-              Book a Strategy Session
+              Get a Free Outbound Audit
             </a>
           </div>
 
@@ -462,7 +462,7 @@ function Navbar() {
                 textAlign: 'center',
               }}
             >
-              Book a Strategy Session
+              Get a Free Outbound Audit
             </a>
           </div>
         )}
@@ -794,7 +794,9 @@ function Hero() {
 
             <div className="flex flex-wrap gap-4 items-center observe-fade" style={{ '--delay': '0.3s' }}>
               <a
-                href="#cta"
+                href="https://calendly.com/commandpipeline/30min"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   backgroundColor: '#FF8559',
                   color: '#fff',
