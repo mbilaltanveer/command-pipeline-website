@@ -669,7 +669,18 @@ function ParticleBackground() {
   }, [])
 
   return (
-    <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }} />
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: 'absolute',
+        inset: 0,
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'none',
+        maskImage: 'linear-gradient(90deg, transparent 0%, transparent 56%, black 72%, black 100%)',
+        WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, transparent 56%, black 72%, black 100%)',
+      }}
+    />
   )
 }
 
