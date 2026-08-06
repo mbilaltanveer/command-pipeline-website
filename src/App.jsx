@@ -9,6 +9,7 @@ import {
 const NAV_LINKS = [
   { label: 'How It Works', href: '#how-it-works' },
   { label: 'Results',      href: '#results' },
+  { label: 'Pricing',      href: '#pricing' },
   { label: 'Clients',      href: '#testimonials' },
   { label: "Who It's For", href: '#who' },
 ]
@@ -1450,6 +1451,7 @@ function Results() {
           </div>
         </div>
 
+        <div id="pricing" style={{ position: 'relative', top: '-104px' }} />
         <div className="observe-fade" style={{
           background: '#1C1C24',
           borderRadius: '12px',
