@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import {
   Antenna, Target, Mail, UserPlus, Bot, TrendingUp, RefreshCw,
   ShieldCheck, Share2, Award, ChevronDown, Check, X,
+  Megaphone, Inbox, GraduationCap,
 } from 'lucide-react'
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -692,10 +693,10 @@ function StatItem({ stat, active, isLast }) {
       padding: '24px 32px',
       borderRight: isLast ? 'none' : '1px solid #E2E8F0',
     }}>
-      <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '32px', color: '#E8A000', lineHeight: 1, marginBottom: '6px' }}>
+      <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 800, fontSize: '38px', color: '#0F172A', lineHeight: 1, marginBottom: '8px', letterSpacing: '-0.02em' }}>
         {stat.prefix}{count}{stat.suffix}
       </div>
-      <div style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '13px', color: '#1E293B', marginBottom: '3px' }}>
+      <div style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '14px', color: '#B87A00', marginBottom: '4px' }}>
         {stat.label}
       </div>
       <div style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', color: '#94A3B8' }}>
@@ -899,17 +900,17 @@ function ToolStackStrip() {
 function Problem() {
   const problems = [
     {
-      icon: '📢',
+      Icon: Megaphone,
       title: "You're mailing cold lists, not intent lists",
       body: 'Most outbound teams buy a database and blast it. No buying signals, no timing, no context. Prospects delete your email because there is no reason to read it right now.',
     },
     {
-      icon: '📧',
+      Icon: Inbox,
       title: 'Email only gets one shot. LinkedIn reaches a different half.',
       body: 'Single-channel outbound relies on a prospect being in the right inbox at the right moment. Coordinated email and LinkedIn sequences create multiple chances to land in front of the right person.',
     },
     {
-      icon: '🎓',
+      Icon: GraduationCap,
       title: 'Your agency has never carried a quota',
       body: 'The people writing your sequences have never had a sales manager ask them why the pipeline is empty. That gap shows in every subject line they write and every CTA they bury.',
     },
@@ -918,14 +919,14 @@ function Problem() {
   return (
     <section style={{ padding: '80px 0', background: '#F8FAFC' }}>
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-12 observe-fade">
+        <div className="mb-12 observe-fade">
           <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '12px', color: '#E8A000', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '12px' }}>
             The Problem
           </p>
           <h2 style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: 'clamp(26px, 3.5vw, 36px)', color: '#1E293B', marginBottom: '16px', letterSpacing: '-0.01em' }}>
             Why most outbound fails
           </h2>
-          <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '16px', color: '#475569', maxWidth: '520px', margin: '0 auto', lineHeight: 1.6 }}>
+          <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '16px', color: '#475569', maxWidth: '520px', lineHeight: 1.6 }}>
             Three mistakes repeat across every company that tries to build outbound without the right system.
           </p>
         </div>
@@ -944,7 +945,18 @@ function Problem() {
                 '--delay': `${i * 0.1}s`,
               }}
             >
-              <div style={{ fontSize: '28px', marginBottom: '16px', textAlign: 'center' }}>{p.icon}</div>
+              <div style={{
+                width: '44px',
+                height: '44px',
+                borderRadius: '10px',
+                background: 'rgba(232,160,0,0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '18px',
+              }}>
+                <p.Icon size={22} color="#E8A000" strokeWidth={2} />
+              </div>
               <h3 style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '17px', color: '#1E293B', marginBottom: '10px' }}>
                 {p.title}
               </h3>
