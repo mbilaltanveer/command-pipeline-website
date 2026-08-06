@@ -1001,7 +1001,7 @@ function TypewriterSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} style={{ background: '#0D0F14', padding: '120px 0', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+    <section ref={sectionRef} style={{ background: '#0D0F14', padding: '88px 0', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
       <div style={{
         position: 'absolute', top: '50%', left: '50%',
         transform: 'translate(-50%, -50%)',
@@ -1009,62 +1009,60 @@ function TypewriterSection() {
         background: 'radial-gradient(ellipse at center, rgba(232,160,0,0.07) 0%, transparent 68%)',
         pointerEvents: 'none',
       }} />
-      <div className="max-w-4xl mx-auto px-6" style={{ position: 'relative' }}>
-        <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '11px', color: '#E8A000', letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: '28px' }}>
+      <div className="max-w-5xl mx-auto px-6" style={{ position: 'relative' }}>
+        <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 600, fontSize: '11px', color: '#E8A000', letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: '22px' }}>
           The Signal Advantage
         </p>
         <h2 style={{
           fontFamily: 'Montserrat, sans-serif', fontWeight: 800,
           fontSize: 'clamp(24px, 3.6vw, 46px)', color: '#fff',
           letterSpacing: '-0.02em', lineHeight: 1.2, minHeight: '1.4em',
+          marginBottom: '18px',
         }}>
           {displayed}
           <span style={{ color: '#E8A000', opacity: cursor ? 1 : 0, transition: 'opacity 0.1s', marginLeft: '3px' }}>|</span>
         </h2>
+
+        <p style={{
+          fontFamily: 'Inter, sans-serif', fontSize: '16px', lineHeight: 1.65,
+          color: '#94A3B8', maxWidth: '620px', margin: '0 auto 52px',
+        }}>
+          One system, ten moving parts — signal detection through attribution, all running
+          together so no lead slips and every touchpoint is accounted for.
+        </p>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5" style={{ gap: '30px 20px' }}>
+          {CAROUSEL_ITEMS.map((item, i) => (
+            <div
+              key={i}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <div style={{
+                width: 60, height: 60, borderRadius: '50%',
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                flexShrink: 0,
+              }}>
+                <item.Icon size={24} color="#E8A000" strokeWidth={1.6} />
+              </div>
+              <span style={{
+                fontFamily: 'Inter, sans-serif', fontSize: '12px',
+                color: 'rgba(255,255,255,0.62)', letterSpacing: '0.03em',
+                lineHeight: 1.35,
+              }}>
+                {item.label}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
-  )
-}
-
-function PipelineCarousel() {
-  const tripled = [...CAROUSEL_ITEMS, ...CAROUSEL_ITEMS, ...CAROUSEL_ITEMS]
-  return (
-    <div style={{ background: '#0D0F14', paddingTop: '20px', paddingBottom: '80px', overflowX: 'hidden' }}>
-      <div className="carousel-track">
-        {tripled.map((item, i) => (
-          <div
-            key={i}
-            className="carousel-item"
-            style={{
-              flexShrink: 0,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '10px',
-              marginRight: '20px',
-              animation: `waveFloat 2.4s ease-in-out infinite`,
-              animationDelay: `${(i % CAROUSEL_ITEMS.length) * 0.24}s`,
-            }}
-          >
-            <div style={{
-              width: 64, height: 64, borderRadius: '50%',
-              background: 'rgba(255,255,255,0.06)',
-              border: '1px solid rgba(255,255,255,0.08)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}>
-              <item.Icon size={24} color="rgba(255,255,255,0.65)" strokeWidth={1.5} />
-            </div>
-            <span style={{
-              fontFamily: 'Inter, sans-serif', fontSize: '11px',
-              color: 'rgba(255,255,255,0.4)', whiteSpace: 'nowrap',
-              letterSpacing: '0.04em',
-            }}>
-              {item.label}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
   )
 }
 
@@ -2351,7 +2349,6 @@ export default function App() {
         <ToolStackStrip />
         <Problem />
         <TypewriterSection />
-        <PipelineCarousel />
         <HowItWorks />
         <WorkflowSplit />
         <WhatIsIncluded />

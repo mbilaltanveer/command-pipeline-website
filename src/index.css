@@ -77,33 +77,6 @@
   box-shadow: 0 18px 44px rgba(232,160,0,0.13);
 }
 
-/* --- Pipeline carousel --- */
-
-@keyframes carouselScroll {
-  from { transform: translateX(0) }
-  to { transform: translateX(-33.333%) }
-}
-
-@keyframes waveFloat {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-12px); }
-}
-
-.carousel-item:hover {
-  animation-play-state: paused !important;
-}
-
-.carousel-track:has(.carousel-item:hover) {
-  animation-play-state: paused !important;
-}
-
-.carousel-track {
-  display: flex;
-  align-items: center;
-  animation: carouselScroll 28s linear infinite;
-  width: max-content;
-  will-change: transform;
-}
 
 
 /* --- Card hover: dark bg --- */
