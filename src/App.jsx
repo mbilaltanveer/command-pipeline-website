@@ -393,7 +393,7 @@ function Navbar() {
             <img src="/cp-logo-full.png" alt="Command Pipeline" className="h-11 w-auto" />
           </a>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-6">
             {NAV_LINKS.map(l => (
               <a
                 key={l.href}
@@ -404,9 +404,27 @@ function Navbar() {
                 {l.label}
               </a>
             ))}
+            {/* Separate treatment: this is for signed clients, not prospects */}
+            <a
+              href="/onboarding"
+              style={{
+                color: '#B87A00',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '14px',
+                fontWeight: 600,
+                border: '1px solid rgba(232,160,0,0.45)',
+                borderRadius: '100px',
+                padding: '6px 14px',
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+              }}
+              className="hover:opacity-75 transition-opacity"
+            >
+              Onboarding
+            </a>
           </div>
 
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             <a
               href="https://calendly.com/commandpipeline/30min"
               target="_blank"
@@ -429,7 +447,7 @@ function Navbar() {
           </div>
 
           <button
-            className="md:hidden p-2"
+            className="lg:hidden p-2"
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
           >
@@ -440,7 +458,7 @@ function Navbar() {
         </div>
 
         {open && (
-          <div style={{ borderTop: '1px solid #E2E8F0', background: '#fff' }} className="md:hidden px-6 py-4 flex flex-col gap-4">
+          <div style={{ borderTop: '1px solid #E2E8F0', background: '#fff' }} className="lg:hidden px-6 py-4 flex flex-col gap-4">
             {NAV_LINKS.map(l => (
               <a
                 key={l.href}
@@ -451,6 +469,19 @@ function Navbar() {
                 {l.label}
               </a>
             ))}
+            <a
+              href="/onboarding"
+              onClick={() => setOpen(false)}
+              style={{
+                color: '#B87A00',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '15px',
+                fontWeight: 600,
+                textDecoration: 'none',
+              }}
+            >
+              Onboarding
+            </a>
             <a
               href="https://calendly.com/commandpipeline/30min"
               target="_blank"
