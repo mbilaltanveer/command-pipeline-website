@@ -18,4 +18,11 @@ export default defineConfig([
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
   },
+  {
+    // Serverless functions and build config run on Node, not in the browser.
+    files: ['api/**/*.js', '*.config.js', 'capture-ag.mjs'],
+    languageOptions: {
+      globals: { ...globals.node },
+    },
+  },
 ])
