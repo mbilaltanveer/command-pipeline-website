@@ -1506,6 +1506,9 @@ function Results() {
   const [showModal, setShowModal] = useState(false)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [currentOutbound, setCurrentOutbound] = useState('')
+  const [expectedVolume, setExpectedVolume] = useState('')
+  const [expectedBudget, setExpectedBudget] = useState('')
   const [status, setStatus] = useState('idle')
   const [expanded, setExpanded] = useState(null)
 
@@ -1530,12 +1533,15 @@ function Results() {
       const res = await fetch('/api/notify-pricing-click', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email }),
+        body: JSON.stringify({ name, email, currentOutbound, expectedVolume, expectedBudget }),
       })
       if (!res.ok) throw new Error('failed')
       setShowModal(false)
       setName('')
       setEmail('')
+      setCurrentOutbound('')
+      setExpectedVolume('')
+      setExpectedBudget('')
       setStatus('idle')
     } catch {
       setStatus('error')
@@ -1833,6 +1839,11 @@ function Results() {
               padding: '32px',
               maxWidth: '420px',
               width: '100%',
+              // Five fields can exceed a short phone viewport — scroll inside
+              // the panel rather than letting it run off-screen.
+              maxHeight: '100%',
+              overflowY: 'auto',
+              minWidth: 0,
               boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
             }}
           >
@@ -1885,10 +1896,81 @@ function Results() {
                   fontFamily: 'Inter, sans-serif',
                   fontSize: '14px',
                   color: '#fff',
-                  marginBottom: '8px',
+                  marginBottom: '18px',
                   outline: 'none',
                 }}
               />
+
+              {[
+                {
+                  label: "What's your outbound today?",
+                  value: currentOutbound,
+                  set: setCurrentOutbound,
+                  options: ['Nothing yet', 'In-house SDR(s)', 'Another agency', 'DIY tools, no process'],
+                },
+                {
+                  label: 'Expected email outreach',
+                  value: expectedVolume,
+                  set: setExpectedVolume,
+                  options: [
+                    'Under 2,500 / month',
+                    '2,500 – 10,000 / month',
+                    '10,000 – 25,000 / month',
+                    '25,000 – 50,000 / month',
+                    '50,000+ / month',
+                    'Not sure yet',
+                  ],
+                },
+                {
+                  label: 'Expected budget',
+                  value: expectedBudget,
+                  set: setExpectedBudget,
+                  options: [
+                    'Under $2,000 / month',
+                    '$2,000 – $3,500 / month',
+                    '$3,500 – $5,000 / month',
+                    '$5,000 – $10,000 / month',
+                    '$10,000+ / month',
+                    'Not sure yet',
+                  ],
+                },
+              ].map(f => (
+                <div key={f.label}>
+                  <label style={{ display: 'block', fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#CBD5E1', marginBottom: '6px' }}>
+                    {f.label}
+                  </label>
+                  <div style={{ position: 'relative', marginBottom: '18px' }}>
+                    <select
+                      required
+                      value={f.value}
+                      onChange={(e) => f.set(e.target.value)}
+                      style={{
+                        width: '100%',
+                        background: 'rgba(255,255,255,0.05)',
+                        border: '1px solid rgba(255,255,255,0.12)',
+                        borderRadius: '8px',
+                        padding: '10px 38px 10px 14px',
+                        fontFamily: 'Inter, sans-serif',
+                        fontSize: '14px',
+                        color: f.value ? '#fff' : '#64748B',
+                        outline: 'none',
+                        appearance: 'none',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <option value="" disabled style={{ color: '#64748B' }}>Select…</option>
+                      {f.options.map(o => (
+                        <option key={o} value={o} style={{ background: '#1C1C24', color: '#fff' }}>{o}</option>
+                      ))}
+                    </select>
+                    <ChevronDown
+                      size={16}
+                      color="#64748B"
+                      style={{ position: 'absolute', right: '13px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}
+                    />
+                  </div>
+                </div>
+              ))}
 
               {status === 'error' && (
                 <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#FCA5A5', marginBottom: '8px' }}>

@@ -10,9 +10,10 @@ export default async function handler(req, res) {
     return
   }
 
-  const { name, email } = req.body || {}
-  const cleanName = typeof name === 'string' ? name.trim().slice(0, 200) : ''
-  const cleanEmail = typeof email === 'string' ? email.trim().slice(0, 200) : ''
+  const { name, email, currentOutbound, expectedVolume, expectedBudget } = req.body || {}
+  const clean = v => (typeof v === 'string' ? v.trim().slice(0, 200) : '')
+  const cleanName = clean(name)
+  const cleanEmail = clean(email)
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
   if (!cleanName || !emailPattern.test(cleanEmail)) {
@@ -22,10 +23,16 @@ export default async function handler(req, res) {
 
   try {
     const referrer = req.headers.referer || 'unknown page'
+    // Domain is the useful bit — it's what gets enriched before replying.
+    const domain = cleanEmail.split('@')[1] || ''
     const lines = [
       ':moneybag: New pricing breakdown request on commandpipeline.com',
       `Name: ${cleanName}`,
       `Email: ${cleanEmail}`,
+      ...(domain ? [`Domain: ${domain}`] : []),
+      ...(clean(currentOutbound) ? [`Current outbound: ${clean(currentOutbound)}`] : []),
+      ...(clean(expectedVolume) ? [`Expected volume: ${clean(expectedVolume)}`] : []),
+      ...(clean(expectedBudget) ? [`Expected budget: ${clean(expectedBudget)}`] : []),
       `Page: ${referrer}`,
     ]
     await fetch(webhookUrl, {
