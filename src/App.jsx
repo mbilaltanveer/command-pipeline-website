@@ -1502,6 +1502,159 @@ function WhyUs() {
   )
 }
 
+// Native <select> popups are drawn by the OS — on macOS the list opens over
+// the box so the selected option lines up with it, and no CSS can move it.
+// This is a custom listbox so the options always drop below the trigger.
+function SelectField({ label, value, onChange, options, placeholder = 'Select…' }) {
+  const [open, setOpen] = useState(false)
+  const [activeIdx, setActiveIdx] = useState(-1)
+  const wrapRef = useRef(null)
+  const listRef = useRef(null)
+
+  useEffect(() => {
+    if (!open) return
+    const onDocDown = (e) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false)
+    }
+    document.addEventListener('mousedown', onDocDown)
+    return () => document.removeEventListener('mousedown', onDocDown)
+  }, [open])
+
+  // The modal panel scrolls, so make sure the opened list isn't left clipped.
+  useEffect(() => {
+    if (open && listRef.current) listRef.current.scrollIntoView({ block: 'nearest' })
+  }, [open])
+
+  const choose = (opt) => {
+    onChange(opt)
+    setOpen(false)
+  }
+
+  const onKeyDown = (e) => {
+    if (e.key === 'Escape') { setOpen(false); return }
+    if (e.key === 'Tab') { setOpen(false); return }
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      if (!open) {
+        setOpen(true)
+        setActiveIdx(Math.max(0, options.indexOf(value)))
+      } else if (activeIdx >= 0) {
+        choose(options[activeIdx])
+      }
+      return
+    }
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault()
+      if (!open) {
+        setOpen(true)
+        setActiveIdx(Math.max(0, options.indexOf(value)))
+        return
+      }
+      setActiveIdx(i => {
+        const n = options.length
+        return e.key === 'ArrowDown' ? (i + 1) % n : (i - 1 + n) % n
+      })
+    }
+  }
+
+  return (
+    <div>
+      <label style={{ display: 'block', fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#CBD5E1', marginBottom: '6px' }}>
+        {label}
+      </label>
+      <div ref={wrapRef} style={{ position: 'relative', marginBottom: '18px' }}>
+        <button
+          type="button"
+          role="combobox"
+          aria-expanded={open}
+          aria-haspopup="listbox"
+          onClick={() => {
+            setOpen(o => !o)
+            setActiveIdx(Math.max(0, options.indexOf(value)))
+          }}
+          onKeyDown={onKeyDown}
+          style={{
+            width: '100%',
+            background: 'rgba(255,255,255,0.05)',
+            border: `1px solid ${open ? 'rgba(232,160,0,0.5)' : 'rgba(255,255,255,0.12)'}`,
+            borderRadius: '8px',
+            padding: '10px 38px 10px 14px',
+            fontFamily: 'Inter, sans-serif',
+            fontSize: '14px',
+            color: value ? '#fff' : '#64748B',
+            textAlign: 'left',
+            outline: 'none',
+            cursor: 'pointer',
+          }}
+        >
+          {value || placeholder}
+        </button>
+        <ChevronDown
+          size={16}
+          color="#64748B"
+          style={{
+            position: 'absolute',
+            right: '13px',
+            top: '20px',
+            transform: `translateY(-50%) rotate(${open ? 180 : 0}deg)`,
+            transition: 'transform 0.18s ease',
+            pointerEvents: 'none',
+          }}
+        />
+
+        {open && (
+          <ul
+            ref={listRef}
+            role="listbox"
+            style={{
+              position: 'absolute',
+              top: 'calc(100% + 6px)',
+              left: 0,
+              right: 0,
+              zIndex: 20,
+              margin: 0,
+              padding: '5px',
+              listStyle: 'none',
+              background: '#22222C',
+              border: '1px solid rgba(255,255,255,0.14)',
+              borderRadius: '10px',
+              boxShadow: '0 14px 34px rgba(0,0,0,0.55)',
+              maxHeight: '208px',
+              overflowY: 'auto',
+            }}
+          >
+            {options.map((opt, i) => {
+              const selected = opt === value
+              const active = i === activeIdx
+              return (
+                <li
+                  key={opt}
+                  role="option"
+                  aria-selected={selected}
+                  onMouseEnter={() => setActiveIdx(i)}
+                  onClick={() => choose(opt)}
+                  style={{
+                    padding: '9px 12px',
+                    borderRadius: '6px',
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: '14px',
+                    color: selected ? '#E8A000' : '#E2E8F0',
+                    fontWeight: selected ? 600 : 400,
+                    background: active ? 'rgba(255,255,255,0.07)' : 'transparent',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {opt}
+                </li>
+              )
+            })}
+          </ul>
+        )}
+      </div>
+    </div>
+  )
+}
+
 function Results() {
   const [showModal, setShowModal] = useState(false)
   const [name, setName] = useState('')
@@ -1528,6 +1681,11 @@ function Results() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    // The custom listboxes aren't form controls, so `required` can't cover them.
+    if (!currentOutbound || !expectedVolume || !expectedBudget) {
+      setStatus('incomplete')
+      return
+    }
     setStatus('submitting')
     try {
       const res = await fetch('/api/notify-pricing-click', {
@@ -1901,76 +2059,46 @@ function Results() {
                 }}
               />
 
-              {[
-                {
-                  label: "What's your outbound today?",
-                  value: currentOutbound,
-                  set: setCurrentOutbound,
-                  options: ['Nothing yet', 'In-house SDR(s)', 'Another agency', 'DIY tools, no process'],
-                },
-                {
-                  label: 'Expected email outreach',
-                  value: expectedVolume,
-                  set: setExpectedVolume,
-                  options: [
-                    'Under 2,500 / month',
-                    '2,500 – 10,000 / month',
-                    '10,000 – 25,000 / month',
-                    '25,000 – 50,000 / month',
-                    '50,000+ / month',
-                    'Not sure yet',
-                  ],
-                },
-                {
-                  label: 'Expected budget',
-                  value: expectedBudget,
-                  set: setExpectedBudget,
-                  options: [
-                    'Under $2,000 / month',
-                    '$2,000 – $3,500 / month',
-                    '$3,500 – $5,000 / month',
-                    '$5,000 – $10,000 / month',
-                    '$10,000+ / month',
-                    'Not sure yet',
-                  ],
-                },
-              ].map(f => (
-                <div key={f.label}>
-                  <label style={{ display: 'block', fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#CBD5E1', marginBottom: '6px' }}>
-                    {f.label}
-                  </label>
-                  <div style={{ position: 'relative', marginBottom: '18px' }}>
-                    <select
-                      required
-                      value={f.value}
-                      onChange={(e) => f.set(e.target.value)}
-                      style={{
-                        width: '100%',
-                        background: 'rgba(255,255,255,0.05)',
-                        border: '1px solid rgba(255,255,255,0.12)',
-                        borderRadius: '8px',
-                        padding: '10px 38px 10px 14px',
-                        fontFamily: 'Inter, sans-serif',
-                        fontSize: '14px',
-                        color: f.value ? '#fff' : '#64748B',
-                        outline: 'none',
-                        appearance: 'none',
-                        cursor: 'pointer',
-                      }}
-                    >
-                      <option value="" disabled style={{ color: '#64748B' }}>Select…</option>
-                      {f.options.map(o => (
-                        <option key={o} value={o} style={{ background: '#1C1C24', color: '#fff' }}>{o}</option>
-                      ))}
-                    </select>
-                    <ChevronDown
-                      size={16}
-                      color="#64748B"
-                      style={{ position: 'absolute', right: '13px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}
-                    />
-                  </div>
-                </div>
-              ))}
+              <SelectField
+                label="What's your outbound today?"
+                value={currentOutbound}
+                onChange={setCurrentOutbound}
+                options={['Nothing yet', 'In-house SDR(s)', 'Another agency', 'DIY tools, no process']}
+              />
+
+              <SelectField
+                label="Expected email outreach"
+                value={expectedVolume}
+                onChange={setExpectedVolume}
+                options={[
+                  'Under 2,500 / month',
+                  '2,500 – 10,000 / month',
+                  '10,000 – 25,000 / month',
+                  '25,000 – 50,000 / month',
+                  '50,000+ / month',
+                  'Not sure yet',
+                ]}
+              />
+
+              <SelectField
+                label="Expected budget"
+                value={expectedBudget}
+                onChange={setExpectedBudget}
+                options={[
+                  'Under $2,000 / month',
+                  '$2,000 – $3,500 / month',
+                  '$3,500 – $5,000 / month',
+                  '$5,000 – $10,000 / month',
+                  '$10,000+ / month',
+                  'Not sure yet',
+                ]}
+              />
+
+              {status === 'incomplete' && (
+                <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#FCA5A5', marginBottom: '8px' }}>
+                  Please answer all three questions above.
+                </p>
+              )}
 
               {status === 'error' && (
                 <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#FCA5A5', marginBottom: '8px' }}>
