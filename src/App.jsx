@@ -1627,6 +1627,10 @@ function Results() {
                 display: 'flex',
                 flexDirection: 'column',
                 cursor: 'pointer',
+                // Grid items default to min-width:auto, which would size this card
+                // to the 480px screenshot and push the page wider than a phone
+                // viewport. Allowing it to shrink lets the wrapper below scroll.
+                minWidth: 0,
                 '--delay': `${i * 0.1}s`,
               }}
             >
@@ -1769,6 +1773,8 @@ function Results() {
               width: '100%',
               maxHeight: '100%',
               overflowY: 'auto',
+              // Same min-width:auto trap as the cards, here as a flex item.
+              minWidth: 0,
               boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
             }}
           >
