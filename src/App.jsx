@@ -426,7 +426,7 @@ function Navbar() {
 
           <div className="hidden lg:flex items-center gap-3">
             <a
-              href="https://calendly.com/commandpipeline/30min"
+              href="https://calendly.com/bilal-commandpipeline/30min"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -483,7 +483,7 @@ function Navbar() {
               Onboarding
             </a>
             <a
-              href="https://calendly.com/commandpipeline/30min"
+              href="https://calendly.com/bilal-commandpipeline/30min"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
@@ -831,7 +831,7 @@ function Hero() {
 
             <div className="flex flex-wrap gap-4 items-center observe-fade" style={{ '--delay': '0.3s' }}>
               <a
-                href="https://calendly.com/commandpipeline/30min"
+                href="https://calendly.com/bilal-commandpipeline/30min"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -1396,7 +1396,7 @@ function WorkflowSplit() {
 
         <div className="observe-fade" style={{ marginTop: '48px', textAlign: 'center' }}>
           <a
-            href="https://calendly.com/commandpipeline/30min"
+            href="https://calendly.com/bilal-commandpipeline/30min"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -2556,7 +2556,7 @@ function CTA() {
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px', position: 'relative' }}>
             <a
-              href="https://calendly.com/commandpipeline/30min"
+              href="https://calendly.com/bilal-commandpipeline/30min"
               target="_blank"
               rel="noopener noreferrer"
               style={{
