@@ -7,6 +7,10 @@
     {
       "source": "/products/screen-recorder",
       "destination": "/index.html"
+    },
+    {
+      "source": "/products/pipeline-studio",
+      "destination": "/index.html"
     }
   ]
 }

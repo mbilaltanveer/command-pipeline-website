@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import {
   Antenna, Target, Mail, UserPlus, Bot, TrendingUp, RefreshCw,
   ShieldCheck, Share2, Award, ChevronDown, Check, X,
-  Megaphone, Inbox, GraduationCap, MonitorPlay, Download,
+  Megaphone, Inbox, GraduationCap, MonitorPlay, Download, Clapperboard,
 } from 'lucide-react'
 import { RECORDER, startDownload } from './recorderRelease.js'
 
@@ -16,19 +16,39 @@ const NAV_LINKS = [
   { label: "Who It's For", href: '#who' },
 ]
 
-// Free tools listed under "Products" in the nav and footer.
+// Products listed under "Products" in the nav and footer.
 const PRODUCTS = [
   {
     label: 'Screen Recorder',
     href: RECORDER.page,
     blurb: 'Record your screen and camera. Free for Mac & Windows.',
+    badge: 'Free',
     Icon: MonitorPlay,
     downloads: [
       { platform: 'mac', ...RECORDER.mac },
       { platform: 'windows', ...RECORDER.windows },
     ],
   },
+  {
+    label: 'Pipeline Studio',
+    href: '/products/pipeline-studio',
+    blurb: 'Branded videos with captions, pop-ups and your own voice.',
+    badge: 'New',
+    Icon: Clapperboard,
+  },
 ]
+
+const BADGE_COLORS = {
+  Free: { color: '#15803D', background: 'rgba(74,222,128,0.16)' },
+  New: { color: '#B87A00', background: 'rgba(232,160,0,0.14)' },
+}
+
+function ProductBadge({ badge, size = 11 }) {
+  if (!badge) return null
+  return (
+    <span style={{ fontFamily: 'Inter, sans-serif', fontSize: `${size}px`, fontWeight: 600, borderRadius: '100px', padding: '2px 8px', ...BADGE_COLORS[badge] }}>{badge}</span>
+  )
+}
 
 const STEPS = [
   {
@@ -440,7 +460,7 @@ function ProductsMenu() {
             boxShadow: '0 18px 44px rgba(15,23,42,0.12)', padding: '8px', overflow: 'hidden',
           }}>
             <div style={{ height: '3px', margin: '-8px -8px 8px', background: 'linear-gradient(90deg, #E8A000, #FBBF24)' }} />
-            {PRODUCTS.map(({ label, href, blurb, Icon, downloads }) => (
+            {PRODUCTS.map(({ label, href, blurb, badge, Icon, downloads }) => (
               <div key={href}>
               <a
                 href={href}
@@ -453,7 +473,7 @@ function ProductsMenu() {
                 <span style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '8px', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '14px', color: '#1E293B' }}>
                     {label}
-                    <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '11px', fontWeight: 600, color: '#15803D', background: 'rgba(74,222,128,0.16)', borderRadius: '100px', padding: '2px 8px' }}>Free</span>
+                    <ProductBadge badge={badge} />
                   </span>
                   <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#64748B', lineHeight: 1.45 }}>{blurb}</span>
                 </span>
@@ -466,7 +486,7 @@ function ProductsMenu() {
                       key={d.platform}
                       href={`${href}?download=${d.platform}#${d.platform}`}
                       onClick={() => startDownload(d.file)}
-                      aria-label={`Download Screen Recorder for ${d.label}`}
+                      aria-label={`Download ${label} for ${d.label}`}
                       style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontFamily: 'Inter, sans-serif', fontSize: '13px', fontWeight: 600, color: '#1E293B', border: '1px solid #E2E8F0', borderRadius: '8px', padding: '6px 11px', textDecoration: 'none' }}
                       className="hover:border-amber-gold hover:text-amber-gold transition-colors"
                     >
@@ -578,7 +598,7 @@ export function Navbar({ base = '' }) {
               <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', fontWeight: 600, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '10px' }}>
                 Products
               </p>
-              {PRODUCTS.map(({ label, href, Icon, downloads }) => (
+              {PRODUCTS.map(({ label, href, badge, Icon, downloads }) => (
                 <div key={href}>
                 <a
                   href={href}
@@ -587,7 +607,7 @@ export function Navbar({ base = '' }) {
                 >
                   <Icon size={18} color="#B87A00" />
                   {label}
-                  <span style={{ fontSize: '11px', fontWeight: 600, color: '#15803D', background: 'rgba(74,222,128,0.16)', borderRadius: '100px', padding: '2px 8px' }}>Free</span>
+                  <ProductBadge badge={badge} />
                 </a>
                 {downloads && (
                   <div style={{ display: 'flex', gap: '8px', margin: '10px 0 0 28px' }}>
@@ -596,7 +616,7 @@ export function Navbar({ base = '' }) {
                         key={d.platform}
                         href={`${href}?download=${d.platform}#${d.platform}`}
                         onClick={() => { startDownload(d.file); setOpen(false) }}
-                        aria-label={`Download Screen Recorder for ${d.label}`}
+                        aria-label={`Download ${label} for ${d.label}`}
                         style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontFamily: 'Inter, sans-serif', fontSize: '14px', fontWeight: 600, color: '#1E293B', border: '1px solid #E2E8F0', borderRadius: '8px', padding: '7px 12px', textDecoration: 'none' }}
                       >
                         <Download size={14} /> {d.label}
