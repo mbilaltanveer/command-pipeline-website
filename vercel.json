@@ -10,7 +10,7 @@
     },
     {
       "source": "/products/pipeline-studio",
-      "destination": "/index.html"
+      "destination": "/products/pipeline-studio/index.html"
     }
   ]
 }

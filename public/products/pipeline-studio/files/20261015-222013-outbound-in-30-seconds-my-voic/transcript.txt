@@ -1,0 +1,5 @@
+Hey everyone, this is Command Pipeline. So, here's how we turn outbound into booked meetings. Every pipeline makes the same four stops. Signal, list, sequence, and reply.
+
+One signal is a reason. But two signals? That's the moment, right? So that's Command Pipeline.
+
+Done-for-you outbound, on email and LinkedIn. Take care, guys!

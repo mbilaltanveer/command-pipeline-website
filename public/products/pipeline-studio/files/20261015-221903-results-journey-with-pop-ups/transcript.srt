@@ -1,0 +1,115 @@
+1
+00:00:00,400 --> 00:00:02,370
+hey everyone hope you guys doing good Bilal
+
+2
+00:00:02,370 --> 00:00:05,130
+and vi from command pipeline here so today
+
+3
+00:00:05,130 --> 00:00:06,810
+i'm going to be showing you how i
+
+4
+00:00:06,810 --> 00:00:08,880
+deliver for my clients this is the first
+
+5
+00:00:08,880 --> 00:00:12,410
+result this is the second result and this
+
+6
+00:00:12,410 --> 00:00:15,500
+is the third result so as you can
+
+7
+00:00:15,500 --> 00:00:18,030
+see the results are there we are trying
+
+8
+00:00:18,030 --> 00:00:20,390
+our best to deliver we have hyper personalized
+
+9
+00:00:20,390 --> 00:00:23,140
+copies we have hyper personalized lists we have
+
+10
+00:00:23,140 --> 00:00:26,400
+signal-based campaigns we are reaching out on linkedin
+
+11
+00:00:26,400 --> 00:00:28,860
+email uh we're going to be trying out
+
+12
+00:00:28,860 --> 00:00:30,760
+uh i think whatsapp is the next that
+
+13
+00:00:30,760 --> 00:00:33,440
+one of our client was looking forward but
+
+14
+00:00:33,440 --> 00:00:35,300
+i will be taking you guys through that
+
+15
+00:00:35,300 --> 00:00:37,810
+journey i have created some new playbooks that
+
+16
+00:00:37,810 --> 00:00:39,770
+i might be sharing with you guys i
+
+17
+00:00:39,770 --> 00:00:42,260
+have to you know formulate it obviously but
+
+18
+00:00:42,260 --> 00:00:44,700
+we are creating these things for you guys
+
+19
+00:00:44,700 --> 00:00:47,490
+and that playbook worked very very well for
+
+20
+00:00:47,490 --> 00:00:49,960
+our client one of our clients right so
+
+21
+00:00:49,960 --> 00:00:53,070
+i'm implementing that across my clientele and it
+
+22
+00:00:53,070 --> 00:00:55,070
+can benefit you as well i will be
+
+23
+00:00:55,070 --> 00:00:57,280
+showing you the results for those as well
+
+24
+00:00:57,280 --> 00:00:59,430
+and the new campaigns that are launched with
+
+25
+00:00:59,430 --> 00:01:02,020
+that playbook for my new clients so take
+
+26
+00:01:02,020 --> 00:01:04,040
+care have a great time i'm gonna take
+
+27
+00:01:04,040 --> 00:01:06,770
+you to through this journey of how command
+
+28
+00:01:06,770 --> 00:01:09,840
+pipelines becomes one of the best out there
+
+29
+00:01:09,840 --> 00:01:10,400
+bye

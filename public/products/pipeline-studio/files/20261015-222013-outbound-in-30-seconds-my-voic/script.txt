@@ -1,0 +1,8 @@
+Scene 1 (title): Outbound that / books meetings. / Done for you, on email and LinkedIn.
+  Voiceover: Hey everyone, this is Command Pipeline. So, here's how we turn outbound into booked meetings.
+Scene 2 (stops): Signal., List., Sequence., Reply.
+  Voiceover: Every pipeline makes the same four stops. Signal, list, sequence, and reply.
+Scene 3 (statement): One signal is a reason. / Two is the moment.
+  Voiceover: One signal is a reason. But two signals? That's the moment, right?
+Scene 4 (end): Done-for-you outbound · email + LinkedIn / Signal, List, Sequence, Reply
+  Voiceover: So that's Command Pipeline. Done-for-you outbound, on email and LinkedIn. Take care, guys!
