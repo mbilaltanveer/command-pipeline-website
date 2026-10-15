@@ -4,14 +4,17 @@ import { Analytics } from '@vercel/analytics/react'
 import './index.css'
 import App from './App.jsx'
 import OnboardingForm from './OnboardingForm.jsx'
+import ScreenRecorderPage from './ScreenRecorderPage.jsx'
 
-// Single static page plus the onboarding form — a full router would be
-// more machinery than two routes justify.
+// A single static page plus a couple of standalone pages — a full router
+// would be more machinery than a handful of routes justify.
 const path = window.location.pathname.replace(/\/+$/, '')
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {path === '/onboarding' ? <OnboardingForm /> : <App />}
+    {path === '/onboarding' ? <OnboardingForm />
+      : path === '/products/screen-recorder' ? <ScreenRecorderPage />
+      : <App />}
     <Analytics />
   </StrictMode>,
 )

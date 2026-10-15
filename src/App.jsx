@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import {
   Antenna, Target, Mail, UserPlus, Bot, TrendingUp, RefreshCw,
   ShieldCheck, Share2, Award, ChevronDown, Check, X,
-  Megaphone, Inbox, GraduationCap,
+  Megaphone, Inbox, GraduationCap, MonitorPlay,
 } from 'lucide-react'
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -13,6 +13,16 @@ const NAV_LINKS = [
   { label: 'Pricing',      href: '#pricing' },
   { label: 'Clients',      href: '#testimonials' },
   { label: "Who It's For", href: '#who' },
+]
+
+// Free tools listed under "Products" in the nav and footer.
+const PRODUCTS = [
+  {
+    label: 'Screen Recorder',
+    href: '/products/screen-recorder',
+    blurb: 'Record your screen and camera. Free for Mac & Windows.',
+    Icon: MonitorPlay,
+  },
 ]
 
 const STEPS = [
@@ -338,7 +348,7 @@ function useCounter(target, active, duration = 1400) {
 
 // ─── Components ──────────────────────────────────────────────────────────────
 
-function AnnouncementBar() {
+function AnnouncementBar({ base = '' }) {
   return (
     <div style={{
       background: '#0D0F14',
@@ -366,7 +376,7 @@ function AnnouncementBar() {
         {' '}in reply efficiency.
       </span>
       <a
-        href="#how-it-works"
+        href={`${base}#how-it-works`}
         style={{
           fontFamily: 'Inter, sans-serif',
           fontSize: '13px',
@@ -381,15 +391,86 @@ function AnnouncementBar() {
   )
 }
 
-function Navbar() {
+// "Products" opens on hover (and on click / keyboard focus, for touch and accessibility).
+function ProductsMenu() {
+  const [open, setOpen] = useState(false)
+  const closeTimer = useRef(null)
+  const show = () => { clearTimeout(closeTimer.current); setOpen(true) }
+  // A short delay lets the pointer travel from the label down into the menu.
+  const hide = () => { clearTimeout(closeTimer.current); closeTimer.current = setTimeout(() => setOpen(false), 150) }
+
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e) => { if (e.key === 'Escape') setOpen(false) }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [open])
+  useEffect(() => () => clearTimeout(closeTimer.current), [])
+
+  return (
+    <div
+      style={{ position: 'relative' }}
+      onMouseEnter={show}
+      onMouseLeave={hide}
+      onFocus={show}
+      onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) hide() }}
+    >
+      <button
+        type="button"
+        aria-haspopup="true"
+        aria-expanded={open}
+        onClick={() => setOpen(o => !o)}
+        style={{ color: open ? '#E8A000' : '#475569', fontFamily: 'Inter, sans-serif', fontSize: '15px', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
+        className="hover:text-amber-gold transition-colors font-medium"
+      >
+        Products
+        <ChevronDown size={15} style={{ transition: 'transform 0.2s ease', transform: open ? 'rotate(180deg)' : 'none' }} />
+      </button>
+
+      {open && (
+        // paddingTop is an invisible bridge so the menu stays open while the pointer moves onto it
+        <div style={{ position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)', paddingTop: '20px', zIndex: 60 }}>
+          <div style={{
+            width: '320px', background: '#fff', border: '1px solid #E2E8F0', borderRadius: '12px',
+            boxShadow: '0 18px 44px rgba(15,23,42,0.12)', padding: '8px', overflow: 'hidden',
+          }}>
+            <div style={{ height: '3px', margin: '-8px -8px 8px', background: 'linear-gradient(90deg, #E8A000, #FBBF24)' }} />
+            {PRODUCTS.map(({ label, href, blurb, Icon }) => (
+              <a
+                key={href}
+                href={href}
+                style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', padding: '12px', borderRadius: '8px', textDecoration: 'none' }}
+                className="hover:bg-cloud focus:bg-cloud transition-colors"
+              >
+                <span style={{ flexShrink: 0, width: 38, height: 38, borderRadius: '10px', background: 'rgba(232,160,0,0.12)', color: '#B87A00', display: 'grid', placeItems: 'center' }}>
+                  <Icon size={20} />
+                </span>
+                <span style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '8px', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '14px', color: '#1E293B' }}>
+                    {label}
+                    <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '11px', fontWeight: 600, color: '#15803D', background: 'rgba(74,222,128,0.16)', borderRadius: '100px', padding: '2px 8px' }}>Free</span>
+                  </span>
+                  <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#64748B', lineHeight: 1.45 }}>{blurb}</span>
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// `base` is '' on the home page and '/' elsewhere, so section links lead back home.
+export function Navbar({ base = '' }) {
   const [open, setOpen] = useState(false)
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
-      <AnnouncementBar />
+      <AnnouncementBar base={base} />
       <nav style={{ borderBottom: '1px solid #E2E8F0', background: '#fff' }}>
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <a href="#" className="flex items-center gap-3">
+          <a href={base || '#'} className="flex items-center gap-3">
             <img src="/cp-logo-full.png" alt="Command Pipeline" className="h-11 w-auto" />
           </a>
 
@@ -397,13 +478,14 @@ function Navbar() {
             {NAV_LINKS.map(l => (
               <a
                 key={l.href}
-                href={l.href}
+                href={base + l.href}
                 style={{ color: '#475569', fontFamily: 'Inter, sans-serif', fontSize: '15px' }}
                 className="hover:text-amber-gold transition-colors font-medium"
               >
                 {l.label}
               </a>
             ))}
+            <ProductsMenu />
             {/* Separate treatment: this is for signed clients, not prospects */}
             <a
               href="/onboarding"
@@ -462,13 +544,30 @@ function Navbar() {
             {NAV_LINKS.map(l => (
               <a
                 key={l.href}
-                href={l.href}
+                href={base + l.href}
                 onClick={() => setOpen(false)}
                 style={{ color: '#475569', fontFamily: 'Inter, sans-serif', fontSize: '15px' }}
               >
                 {l.label}
               </a>
             ))}
+            <div>
+              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', fontWeight: 600, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '10px' }}>
+                Products
+              </p>
+              {PRODUCTS.map(({ label, href, Icon }) => (
+                <a
+                  key={href}
+                  href={href}
+                  onClick={() => setOpen(false)}
+                  style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#1E293B', fontFamily: 'Inter, sans-serif', fontSize: '15px', fontWeight: 500, textDecoration: 'none' }}
+                >
+                  <Icon size={18} color="#B87A00" />
+                  {label}
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: '#15803D', background: 'rgba(74,222,128,0.16)', borderRadius: '100px', padding: '2px 8px' }}>Free</span>
+                </a>
+              ))}
+            </div>
             <a
               href="/onboarding"
               onClick={() => setOpen(false)}
@@ -2585,13 +2684,13 @@ function CTA() {
   )
 }
 
-function Footer() {
+export function Footer({ base = '' }) {
   return (
     <footer style={{ background: '#1C1C24', borderTop: '1px solid rgba(255,255,255,0.06)', padding: '48px 0 32px' }}>
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-10">
           <div>
-            <a href="#" className="flex items-center gap-3 mb-4">
+            <a href={base || '#'} className="flex items-center gap-3 mb-4">
               <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '8px', padding: '6px 12px', display: 'inline-block' }}>
                 <img src="/cp-logo-full.png" alt="Command Pipeline" style={{ height: '40px', width: 'auto', display: 'block' }} />
               </div>
@@ -2609,11 +2708,26 @@ function Footer() {
               {NAV_LINKS.map(l => (
                 <a
                   key={l.href}
-                  href={l.href}
+                  href={base + l.href}
                   style={{ display: 'block', fontFamily: 'Inter, sans-serif', fontSize: '14px', color: '#94A3B8', textDecoration: 'none', marginBottom: '8px' }}
                   className="hover:text-white transition-colors"
                 >
                   {l.label}
+                </a>
+              ))}
+            </div>
+            <div>
+              <p style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 600, fontSize: '12px', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '12px' }}>
+                Products
+              </p>
+              {PRODUCTS.map(p => (
+                <a
+                  key={p.href}
+                  href={p.href}
+                  style={{ display: 'block', fontFamily: 'Inter, sans-serif', fontSize: '14px', color: '#94A3B8', textDecoration: 'none', marginBottom: '8px' }}
+                  className="hover:text-white transition-colors"
+                >
+                  {p.label}
                 </a>
               ))}
             </div>

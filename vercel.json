@@ -1,5 +1,12 @@
 {
   "rewrites": [
-    { "source": "/onboarding", "destination": "/index.html" }
+    {
+      "source": "/onboarding",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/products/screen-recorder",
+      "destination": "/index.html"
+    }
   ]
 }
