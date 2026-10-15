@@ -2,8 +2,9 @@ import { useState, useEffect, useRef } from 'react'
 import {
   Antenna, Target, Mail, UserPlus, Bot, TrendingUp, RefreshCw,
   ShieldCheck, Share2, Award, ChevronDown, Check, X,
-  Megaphone, Inbox, GraduationCap, MonitorPlay,
+  Megaphone, Inbox, GraduationCap, MonitorPlay, Download,
 } from 'lucide-react'
+import { RECORDER, startDownload } from './recorderRelease.js'
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -19,9 +20,13 @@ const NAV_LINKS = [
 const PRODUCTS = [
   {
     label: 'Screen Recorder',
-    href: '/products/screen-recorder',
+    href: RECORDER.page,
     blurb: 'Record your screen and camera. Free for Mac & Windows.',
     Icon: MonitorPlay,
+    downloads: [
+      { platform: 'mac', ...RECORDER.mac },
+      { platform: 'windows', ...RECORDER.windows },
+    ],
   },
 ]
 
@@ -435,9 +440,9 @@ function ProductsMenu() {
             boxShadow: '0 18px 44px rgba(15,23,42,0.12)', padding: '8px', overflow: 'hidden',
           }}>
             <div style={{ height: '3px', margin: '-8px -8px 8px', background: 'linear-gradient(90deg, #E8A000, #FBBF24)' }} />
-            {PRODUCTS.map(({ label, href, blurb, Icon }) => (
+            {PRODUCTS.map(({ label, href, blurb, Icon, downloads }) => (
+              <div key={href}>
               <a
-                key={href}
                 href={href}
                 style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', padding: '12px', borderRadius: '8px', textDecoration: 'none' }}
                 className="hover:bg-cloud focus:bg-cloud transition-colors"
@@ -453,6 +458,24 @@ function ProductsMenu() {
                   <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: '#64748B', lineHeight: 1.45 }}>{blurb}</span>
                 </span>
               </a>
+              {downloads && (
+                <div style={{ display: 'flex', gap: '8px', padding: '2px 12px 12px 62px' }}>
+                  {downloads.map(d => (
+                    // Starts the download, then opens the page at that computer's install steps.
+                    <a
+                      key={d.platform}
+                      href={`${href}?download=${d.platform}#${d.platform}`}
+                      onClick={() => startDownload(d.file)}
+                      aria-label={`Download Screen Recorder for ${d.label}`}
+                      style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontFamily: 'Inter, sans-serif', fontSize: '13px', fontWeight: 600, color: '#1E293B', border: '1px solid #E2E8F0', borderRadius: '8px', padding: '6px 11px', textDecoration: 'none' }}
+                      className="hover:border-amber-gold hover:text-amber-gold transition-colors"
+                    >
+                      <Download size={14} /> {d.label}
+                    </a>
+                  ))}
+                </div>
+              )}
+              </div>
             ))}
           </div>
         </div>
@@ -555,9 +578,9 @@ export function Navbar({ base = '' }) {
               <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', fontWeight: 600, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '10px' }}>
                 Products
               </p>
-              {PRODUCTS.map(({ label, href, Icon }) => (
+              {PRODUCTS.map(({ label, href, Icon, downloads }) => (
+                <div key={href}>
                 <a
-                  key={href}
                   href={href}
                   onClick={() => setOpen(false)}
                   style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#1E293B', fontFamily: 'Inter, sans-serif', fontSize: '15px', fontWeight: 500, textDecoration: 'none' }}
@@ -566,6 +589,22 @@ export function Navbar({ base = '' }) {
                   {label}
                   <span style={{ fontSize: '11px', fontWeight: 600, color: '#15803D', background: 'rgba(74,222,128,0.16)', borderRadius: '100px', padding: '2px 8px' }}>Free</span>
                 </a>
+                {downloads && (
+                  <div style={{ display: 'flex', gap: '8px', margin: '10px 0 0 28px' }}>
+                    {downloads.map(d => (
+                      <a
+                        key={d.platform}
+                        href={`${href}?download=${d.platform}#${d.platform}`}
+                        onClick={() => { startDownload(d.file); setOpen(false) }}
+                        aria-label={`Download Screen Recorder for ${d.label}`}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontFamily: 'Inter, sans-serif', fontSize: '14px', fontWeight: 600, color: '#1E293B', border: '1px solid #E2E8F0', borderRadius: '8px', padding: '7px 12px', textDecoration: 'none' }}
+                      >
+                        <Download size={14} /> {d.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
+                </div>
               ))}
             </div>
             <a
