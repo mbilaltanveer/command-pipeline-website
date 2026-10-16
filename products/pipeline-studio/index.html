@@ -8,6 +8,8 @@
 .top .site{display:flex;align-items:center;gap:14px;margin-left:auto}
 .top .site .qstat{margin-left:0}
 @media(max-width:640px){.top .site .cp{display:none}.top{flex-wrap:wrap}}
+/* keep Chrome's autofill from painting fields white */
+input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus{-webkit-box-shadow:0 0 0 1000px #0E1117 inset;-webkit-text-fill-color:#E9ECF2;caret-color:#E9ECF2;transition:background-color 9999s}
 </style>
 </head><body>
 <header class="top">
