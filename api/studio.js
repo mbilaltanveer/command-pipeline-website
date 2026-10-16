@@ -1,13 +1,19 @@
 // Pipeline Studio on the website: visitors queue videos here, the studio on Bilal's Mac renders them.
 //
 // Visitor actions:  status · upload (Blob client-upload tokens) · create · job
-// Worker actions:   claim · update · token · delete   (Authorization: Bearer STUDIO_WORKER_SECRET)
+// Worker actions:   claim · update · token · delete   (signed with the Mac's Ed25519 key, see WORKER_PUBLIC_KEY)
 //
 // Storage: Upstash Redis (queue, jobs, rate limits) and Vercel Blob (uploads and finished files).
 // Env: BLOB_READ_WRITE_TOKEN, KV_REST_API_URL + KV_REST_API_TOKEN (or UPSTASH_REDIS_REST_URL + _TOKEN),
-//      STUDIO_WORKER_SECRET, optional STUDIO_DAILY_CAP and SLACK_WEBHOOK_URL.
+//      optional STUDIO_DAILY_CAP, SLACK_WEBHOOK_URL and STUDIO_WORKER_PUBLIC_KEY (to use a different Mac).
+import { createPublicKey, verify } from 'node:crypto'
 import { handleUpload, generateClientTokenFromReadWriteToken } from '@vercel/blob/client'
 import { del } from '@vercel/blob'
+
+// Public half of the key pair made by Pipeline Studio on Bilal's Mac (core/webworker.py). Not a secret.
+const WORKER_PUBLIC_KEY = process.env.STUDIO_WORKER_PUBLIC_KEY || `-----BEGIN PUBLIC KEY-----
+MCowBQYDK2VwAyEAZOkkO6Omn1j6HjPDJzTkA3etdQNpMnD3YPB4I41gF74=
+-----END PUBLIC KEY-----`
 
 const PER_EMAIL_PER_DAY = 3
 const DAILY_CAP = parseInt(process.env.STUDIO_DAILY_CAP || '30', 10)
@@ -40,7 +46,15 @@ const isOurBlob = (url, folder) => {
   catch { return false }
 }
 const publicJob = job => { const out = { ...job }; delete out.email; return out }
-const workerAuthorized = req => !!process.env.STUDIO_WORKER_SECRET && req.headers.authorization === `Bearer ${process.env.STUDIO_WORKER_SECRET}`
+// A worker request carries {payload: JSON string}, signed as `${time}.${action}.${payload}`. Returns the payload or null.
+function workerPayload(req, action) {
+  const ts = Number(req.headers['x-studio-time']), sig = req.headers['x-studio-signature'], payload = req.body?.payload
+  if (!ts || !sig || typeof payload !== 'string' || Math.abs(Date.now() / 1000 - ts) > 120) return null
+  try {
+    const ok = verify(null, Buffer.from(`${ts}.${action}.${payload}`), createPublicKey(WORKER_PUBLIC_KEY), Buffer.from(sig, 'base64'))
+    return ok ? JSON.parse(payload) : null
+  } catch { return null }
+}
 
 function sanitizeBrand(b = {}) {
   const c = b.colors || {}
@@ -160,14 +174,14 @@ export default async function handler(req, res) {
 
     // ---------------------------------------------------------------- worker (Bilal's Mac)
     if (['claim', 'update', 'token', 'delete'].includes(action)) {
-      if (!workerAuthorized(req)) return res.status(401).json({ error: 'Not authorized' })
-      await redis('SET', 'studio:worker', String(Date.now()), 'EX', 90)
+      const b = workerPayload(req, action)
+      if (!b) return res.status(401).json({ error: 'Not authorized' })
+      if (b.beat) await redis('SET', 'studio:worker', String(Date.now()), 'EX', 150)
 
       if (action === 'claim') {
         const id = await redis('RPOP', 'studio:queue')
         return res.status(200).json({ job: id ? await getJob(id) : null })
       }
-      const b = req.body || {}
       const job = await getJob(String(b.id || '').replace(/[^a-f0-9]/g, ''))
       if (!job) return res.status(404).json({ error: 'No such job' })
 
