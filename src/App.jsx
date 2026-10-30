@@ -35,6 +35,8 @@ const PRODUCTS = [
     blurb: 'Branded videos with captions, pop-ups and your own voice.',
     badge: 'New',
     Icon: Clapperboard,
+    // Hidden from the Products menu for now (page and URL still work). Set back to true to show it again.
+    showInMenu: false,
   },
 ]
 
@@ -460,7 +462,7 @@ function ProductsMenu() {
             boxShadow: '0 18px 44px rgba(15,23,42,0.12)', padding: '8px', overflow: 'hidden',
           }}>
             <div style={{ height: '3px', margin: '-8px -8px 8px', background: 'linear-gradient(90deg, #E8A000, #FBBF24)' }} />
-            {PRODUCTS.map(({ label, href, blurb, badge, Icon, downloads }) => (
+            {PRODUCTS.filter(p => p.showInMenu !== false).map(({ label, href, blurb, badge, Icon, downloads }) => (
               <div key={href}>
               <a
                 href={href}
@@ -598,7 +600,7 @@ export function Navbar({ base = '' }) {
               <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', fontWeight: 600, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '10px' }}>
                 Products
               </p>
-              {PRODUCTS.map(({ label, href, badge, Icon, downloads }) => (
+              {PRODUCTS.filter(p => p.showInMenu !== false).map(({ label, href, badge, Icon, downloads }) => (
                 <div key={href}>
                 <a
                   href={href}
